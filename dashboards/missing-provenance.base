@@ -1,0 +1,13 @@
+# Best-effort Bases view — see dashboards/README.md (schema is version-fragile; recreate via UI if it doesn't render).
+filters:
+  and:
+    - 'file.inFolder("notes")'
+    - '!sources'
+views:
+  - type: table
+    name: "Missing provenance"
+    order:
+      - file.name
+      - type
+      - status
+      - domain

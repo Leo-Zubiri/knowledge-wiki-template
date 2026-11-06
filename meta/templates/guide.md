@@ -4,6 +4,7 @@ type: guide
 domain: <domain>
 status: proposed
 summary: <one-line statement of what the reader will accomplish>
+# aliases: [synonym, alt-term]           # optional — improves lexical recall
 sources:
   - claim: "<source backing the steps>"
     # provide EXACTLY ONE of url (external) or ref (local source-note id):

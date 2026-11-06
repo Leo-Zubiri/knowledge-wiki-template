@@ -51,6 +51,27 @@ it as a text file containing the path) and some tools refuse to write through sy
 `@import` → config pointer → one-line text pointer. **No other vendor files** are shipped for symmetry
 (Codex/OpenCode/Cursor/Copilot need none).
 
+## Retrieval: filesystem-first vs Obsidian MCP (verified capabilities)
+For **finding knowledge**, the default is filesystem-first (see [`workflows/retrieval.md`](workflows/retrieval.md)). MCP
+is an optional accelerator, **not** a retrieval upgrade — its search is lexical + metadata only (**no semantic search**),
+capped, and offline when Obsidian is closed.
+
+| Capability | Filesystem-first | Obsidian MCP (Local REST API) |
+|---|---|---|
+| Exact text search | **Excellent** (`ripgrep`, deterministic, precise for identifiers) | Good (`search_simple` fuzzy, capped) |
+| Metadata filtering | Good (`rg` over frontmatter) | Good+ (`search_query` JsonLogic, structured) |
+| Relationship discovery | **Good** (`related:` + backlink grep) | Uncertain (may not expose links/backlinks) |
+| Progressive retrieval | **Full control** (list → read) | Helped by capped results |
+| Live vault state | Files on disk (always) | Live Obsidian state (only while open) |
+| Token efficiency | **High** (`-l` output is tiny) | High (capped payload) — tie |
+| Security / permissions | **Simple** (OS / Git) | Bearer key + `.obsidian/` 403 + our deny-list; broad write exposed |
+| Portability across agents | **Universal** (any file-capable agent) | Needs an MCP client + Obsidian |
+| Maintenance | **None** | Plugin version, key, TLS, Obsidian running |
+
+**Conclusion:** filesystem-first wins or ties on every retrieval axis; MCP's only unique edges (live state, UI actions)
+are **not** retrieval. Use filesystem-first by default; reach for MCP only when a concrete non-retrieval capability
+justifies it.
+
 ## Optionally exposing a workflow as an Agent Skill (`SKILL.md`)
 Agent Skills are an **open spec** (agentskills.io; a folder with a required `SKILL.md` carrying `name` + `description`
 frontmatter, with progressive disclosure). They are loaded by Anthropic products and OpenAI Codex (verified); broader

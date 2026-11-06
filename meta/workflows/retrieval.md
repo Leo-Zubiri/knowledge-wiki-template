@@ -1,73 +1,75 @@
 # Workflow: Filesystem-first retrieval
 
-How to find and read knowledge using only ordinary tools — **no Obsidian, no MCP, no index, no custom engine**. This
-is the primary retrieval path; it works with Obsidian closed.
+Find and read knowledge using only ordinary tools — **no Obsidian, no MCP, no index, no custom engine**. This is the
+**default** retrieval path; it works with Obsidian closed and is portable to any agent. (Why filesystem-first beats
+MCP for retrieval: see the comparison in [`../interoperability.md`](../interoperability.md).)
 
-> Cost principle: the expensive part is the text you pull into context, not the search. **Return little; read
-> progressively.** Prefer snippets and the 1–3 notes you actually need.
+> **Cost principle:** the expensive part is the text pulled **into the model's context**, not running the search.
+> **Return little; read progressively.** Running `rg` costs no context; only what you *read* does.
 
-## 1. Search
-Use `ripgrep` (`rg`) over `notes/` (add `sources/` only when you need the evidence itself). Combine content terms
-with frontmatter filters:
-```sh
-rg -l -i "event decoupling" notes/            # files mentioning the topic
-rg -l "^status: verified"   notes/            # only verified knowledge
-rg -l "^type: concept"      notes/            # by content type
-rg -l "^domain: <domain>"   notes/            # by domain (multi-domain repos)
-rg -n -i "<term>" notes/ -C2                   # with surrounding context (snippets)
-```
-Intersect filters by piping file lists, e.g. verified concepts about a topic:
-```sh
-comm -12 <(rg -l "^status: verified" notes/ | sort) <(rg -l -i "<topic>" notes/ | sort)
-```
+## Required capabilities (provider-neutral)
+Any agent can do this with: **recursive text search** (`ripgrep` preferred; `grep -r` or any substring search works),
+**read a file**, **list a directory**, and **git**. Commands below use `rg`; substitute your tool's equivalent.
 
-## 2. Rank by trust (status is type-scoped)
-For **claim-bearing** notes prefer `verified` > `reviewed` > `proposed`; treat `unreviewed`/`deprecated` with care (a
-`deprecated` note *may* point to a successor via `superseded-by`, but is not required to). For **`decision`** notes the
-states are `proposed → accepted → superseded`/`rejected` (`accepted` ≠ every claim verified). **`source` and `index`
-notes carry no status** — judge a source by its provenance, an index by whether it's current.
+## The progressive protocol
+1. **Understand the question** — identify domain(s), key terms, and intent (point fact / comparison / survey).
+2. **Discover candidates** by metadata + filenames, not by reading bodies:
+   `rg -l "^domain: <domain>" notes/` · match filenames · check `index`/MOC notes.
+3. **Filter** by dimension (intersect file lists):
+   ```sh
+   comm -12 <(rg -l '^status: verified' notes/|sort) <(rg -l -i '<topic>' notes/|sort)
+   ```
+4. **Search content** with exact terms **and synonyms/related terms you generate** (compensates for lexical-only
+   search): `rg -n -C1 -i '<term>' notes/` for snippets.
+5. **Inspect a few** — read **frontmatter + `summary`** of top candidates *before* opening any full body.
+6. **Follow relationships** only for the 1–3 that matter: `related:` + `[[wikilinks]]`; backlinks =
+   `rg -l "\[\[<id>\]\]" notes/`. Inverse relations are **derived here**, not stored (see
+   [`../methodology/relationships.md`](../methodology/relationships.md)).
+7. **Read `sources/`** only when a claim needs its original evidence.
+8. **Prefer `verified`** but **don't hide `proposed`** — surface it with its status as a trust signal.
+9. **Answer with references** — cite the note `id` and its `sources:` entry.
+10. **State insufficiency** — if the repo lacks evidence, say so; never fabricate.
 
-## 3. Read progressively
-1. Read a candidate's **frontmatter + `summary`** first.
-2. Open the **full body** of only the 1–3 notes that actually answer the question.
-3. Stop when you have enough. Don't load the whole folder.
+## When to STOP (don't over-search / over-read)
+- You have 1–3 notes that answer the question with citations → stop.
+- A `verified` note already answers it → stop (don't keep scanning).
+- Two full passes with different terms find nothing relevant → **report "not enough evidence"**, don't keep loading files.
+- Never read the whole vault "to be sure."
 
-## 4. Traverse relationships
-- Follow `related:` entries and body `[[wikilinks]]` in the note.
-- Find **backlinks** (what points *to* a note) by its id:
-  ```sh
-  rg -l "\[\[<note-id>\]\]" notes/
-  ```
-- The typed `related:` field is plain text, so it is fully greppable even where Obsidian/MCP backlink APIs aren't
-  available.
+## Handling specific cases
+- **Exact keyword** (API names, error strings) → `rg` directly; its strongest case.
+- **Conceptual / different terminology** → expand with synonyms; lean on `summary`, **`aliases`** (frontmatter), and
+  `index`/MOC notes. *(This is the real limit of lexical search — and MCP shares it; structure, not MCP, is the fix.)*
+- **Related notes** → `related:` + backlink grep (step 6).
+- **Contradictions** → look for `contradicts` links and `anti-pattern` notes; present both sides with their statuses.
+- **Missing metadata** → fall back to full-text + filename; flag the gap.
+- **Large repos** → `-l`/`head`, two-phase read, `index`/MOC as entry points. Only a *measured* failure (latency, or
+  needing one overview instead of many greps) would justify a generated catalog — see "Signs the filesystem is not
+  enough" below. No DB/embeddings.
+- **Multi-domain** → filter per `domain`, or search across and surface `domain` in results.
 
-### Deriving inverse relationships (they are NOT stored)
-Only the **canonical** direction of a relation is written (see
-[`../methodology/relationships.md`](../methodology/relationships.md)); the inverse is **derived here at retrieval**.
-To find the inverse for note `X`, search for the canonical link pointing at it:
-```sh
-# what refines X / depends on X / is an example of X / supersedes X:
-rg -n "refines: .*\[\[X\]\]|depends-on: .*\[\[X\]\]|example-of: .*\[\[X\]\]|superseded-by: .*\[\[X\]\]" notes/
-```
-So `supersedes` (inverse of the stored `superseded-by`), `refined-by`, `prerequisite-of`, and `has-example` are all
-obtained by searching — never hand-maintained on the other note.
-
-## 5. Cite what you use
-When you answer from a note, cite the note and the `sources:` entry its claim rests on.
+## Token efficiency — what costs context
+- **Tool execution** (`rg`, `ls`, `git`): CPU/disk, **not** model context.
+- **Tool output** (stdout): controllable — `-l` (filenames only), `-n -C1` (small snippets), `head`.
+- **Model context**: only what you read/return — the protocol keeps it to a few notes.
+- **Reasoning context**: the 1–3 right notes, not the vault.
 
 ## (Optional) via Obsidian MCP, when Obsidian is open
-If a human is running Obsidian with the Local REST API plugin, you may use its `search_simple` (fuzzy) and
-`search_query` (JsonLogic over frontmatter/tags) tools and `vault_read`. These return **capped** result sets (good
-for context budget) but offer **lexical + metadata search only — no semantic search**, and are **unavailable when
-Obsidian is closed**. See [`../mcp-setup.md`](../mcp-setup.md). The filesystem path above remains the default.
+If a human runs Obsidian with the Local REST API plugin, you *may* use `search_simple`/`search_query`/`vault_read`
+(see [`../mcp-setup.md`](../mcp-setup.md)). It is **lexical + metadata only (no semantic search)**, **capped**, and
+**offline when Obsidian is closed** — so it offers **no retrieval advantage** over the filesystem and remains an
+optional accelerator, never the default. Prefer the filesystem.
 
 ## Signs the filesystem is NOT enough (when to propose more)
-Only a **measured** failure justifies revisiting the "not building" list (custom index/embeddings/etc.). Watch for:
-- relevant notes **consistently missed** by lexical search;
-- poor recall across **different terminology** for the same idea (vocabulary mismatch);
-- **indirect relationships** you cannot surface via links/backlinks;
-- **excessive context** consumed per query despite progressive reading;
-- a hard requirement to retrieve **without Obsidian** that the filesystem genuinely can't meet.
+Only a **measured, repeated** failure justifies revisiting the "not building" list:
+- relevant notes consistently missed by lexical search; poor recall across terminology despite `aliases`;
+- indirect relationships you can't surface via links/backlinks; excessive context per query despite two-phase reads;
+- a hard need to retrieve **without Obsidian** that the filesystem genuinely can't meet.
+Write it up with examples and propose the **smallest** addition — never infrastructure for convenience.
 
-If one of these is real and repeated, write it up (with examples) and propose the **smallest** addition — do not add
-infrastructure for convenience.
+## Validation experiment (run in a real domain repo, e.g. P2)
+To prove this protocol on a real corpus (don't claim results before running): seed ~10–20 notes (some `verified`, some
+`proposed`, one deliberate contradiction), then for representative questions compare strategies (metadata→read vs
+ripgrep-progressive vs MCP) on: relevance of retrieved notes, answer correctness, source traceability, files inspected,
+content returned to the model, tool calls, and approximate tokens. Expected: filesystem-first answers correctly with
+few files and small context.

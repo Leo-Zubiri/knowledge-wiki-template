@@ -4,6 +4,7 @@ type: reference
 domain: <domain>
 status: proposed
 summary: <one-line description of what this reference covers>
+# aliases: [synonym, alt-term]           # optional — improves lexical recall
 applies-to:
   min: "<minimum version, if relevant>"
   tested: "<version this was checked against>"

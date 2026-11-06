@@ -28,7 +28,8 @@ Keep these separate — they answer different questions:
 | `domain` | `notes/`, `sources/` | **yes** | e.g. `example`. Enables multi-domain use and filtering. |
 | `source` | `sources/` | **yes** | the original's provenance: `url`, `title`, `retrieved`, `version` (+ `hash` if useful). |
 | `sources` | synthesized `notes/` | **required for `verified`** | list of provenance entries (see rules below). |
-| `summary` | `notes/` | recommended | 1–2 line TL;DR for progressive disclosure (lets a reader/agent stop early). |
+| `summary` | `notes/` | **expected** | 1–2 line TL;DR for progressive disclosure — agents read it *before* the body, so it drives retrieval. Strongly recommended on every note. |
+| `aliases` | `notes/` | optional | alternative names / synonyms for the note's topic. **Improves lexical recall** (finding a concept by a different term) and is Obsidian-native. e.g. `aliases: [signal, event emitter]`. |
 | `related` | optional | optional | typed, reason-annotated links — see [`relationships.md`](relationships.md). |
 | `created_by_type` | all | optional | `human` or `agent` — **actor-provenance only, NOT a trust signal.** No default; never fabricate. |
 | `applies-to` | `reference`/`concept` | type-scoped | version applicability (e.g. `min`/`tested`) — only where relevant. |

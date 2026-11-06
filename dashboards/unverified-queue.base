@@ -1,0 +1,13 @@
+# Best-effort Bases view — see dashboards/README.md (schema is version-fragile; recreate via UI if it doesn't render).
+filters:
+  and:
+    - 'file.inFolder("notes")'
+    - 'status == "unreviewed" || status == "proposed" || status == "reviewed"'
+views:
+  - type: table
+    name: "Unverified queue"
+    order:
+      - file.name
+      - status
+      - domain
+      - updated

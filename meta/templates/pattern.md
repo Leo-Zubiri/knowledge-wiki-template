@@ -4,6 +4,7 @@ type: pattern
 domain: <domain>
 status: proposed
 summary: <one-line statement of the problem this pattern solves>
+# aliases: [synonym, alt-term]           # optional — improves lexical recall
 sources:
   - claim: "<claim / where this pattern is described>"
     # provide EXACTLY ONE of url (external) or ref (local source-note id):

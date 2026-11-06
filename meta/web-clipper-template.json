@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "0.1.0",
+  "name": "Knowledge inbox capture",
+  "behavior": "create",
+  "path": "inbox",
+  "noteNameFormat": "{{date}}-{{title}}",
+  "properties": [
+    { "name": "captured", "value": "{{date}}", "type": "date" },
+    { "name": "via", "value": "human", "type": "text" },
+    { "name": "kind", "value": "article", "type": "text" },
+    { "name": "source", "value": "{{url}}", "type": "text" },
+    { "name": "triage", "value": "todo", "type": "text" }
+  ],
+  "noteContentFormat": "{{content}}"
+}

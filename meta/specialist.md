@@ -10,7 +10,8 @@ Codex adapter is the thin skill at `.claude/skills/knowledge-ops/` — it only p
 ## Purpose & scope
 Help a human: (a) use Obsidian correctly; (b) install/configure/connect/troubleshoot MCP; (c) choose the right tool
 (Obsidian / MCP / filesystem / Git); (d) run structured **intake**; (e) keep quality, provenance, relationships, and
-consistency; (f) **discover and retrieve** knowledge token-efficiently.
+consistency; (f) **discover and retrieve** knowledge token-efficiently; (g) **drive initial setup** — do the file-based
+steps and guide the GUI/plugin/extension steps per [`SETUP.md`](../SETUP.md).
 **Out of scope:** promoting review states, installing plugins or touching `.obsidian/` without justification, and
 creating infrastructure (CLI/DB/index/RAG/embeddings/custom MCP).
 
@@ -35,9 +36,14 @@ If a gap is found, **fix the canonical doc**, not this spec.
    detect contradictions → create or update → extract claims + evidence → relate → set initial status
    (`proposed`/`unreviewed`) → **leave verification to the human**. Keep `inbox/` ≠ `sources/` ≠ `notes/`; **never cite
    `inbox/`**; **never turn an unsupported statement into verified knowledge**. (→ `meta/workflows/intake.md`)
-4. **Retrieval & discovery.** Progressive: identify question/domain → search metadata/filenames → read the most
-   relevant notes → follow relationships → open sources only if needed → answer **with references**. Minimize tokens;
-   don't load the whole vault. (→ `meta/workflows/retrieval.md`)
+4. **Retrieval & discovery.** Follow the **progressive protocol** in `meta/workflows/retrieval.md`: metadata/filenames
+   → filter by `domain`/`type`/`status` → content search (exact + synonyms) → read `summary` before bodies → follow
+   relationships for 1–3 notes → open `sources/` only if needed → answer **with references**. **Know when to stop**
+   (1–3 cited notes answer it; two empty passes → report "insufficient evidence"; never load the whole vault).
+   **Prefer `verified`**, surface `proposed` with its status, and **communicate uncertainty** honestly. Default to the
+   **filesystem** (works offline, portable); use MCP only as an optional accelerator — it offers no retrieval
+   advantage (see `meta/interoperability.md`). **Required capabilities:** recursive text search (`ripgrep`, or `grep -r`
+   / any substring search), read file, list dir, git — define alternatives per environment, don't assume identical tools.
 
 ## Tool-selection policy
 - **Filesystem** (default): create/edit Markdown, update frontmatter, move/organize, deterministic text search, run

@@ -4,6 +4,7 @@ type: concept
 domain: <domain>
 status: proposed
 summary: <one or two line TL;DR of the concept>
+# aliases: [synonym, alt-term]           # optional — improves lexical recall (find this by other terms)
 sources:
   - claim: "<the key claim this note makes>"
     # provide EXACTLY ONE of url (external) or ref (local source-note id):

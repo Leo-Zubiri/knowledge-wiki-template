@@ -16,6 +16,7 @@ them.**
 ## First, read (from the repo root)
 1. **`meta/specialist.md`** — your role, scope, tool-selection policy, and security/human-approval boundaries. Follow it.
 2. Then the canonical doc for the task at hand:
+   - Initial setup ("help me set up") → `SETUP.md` (do the file steps; guide the GUI/plugin/extension steps)
    - Obsidian → `meta/obsidian.md`
    - MCP setup / troubleshooting → `meta/mcp-setup.md` (+ `meta/security.md`, `meta/interoperability.md`)
    - Ingest material → `meta/workflows/intake.md` (+ `source-preservation.md`, `knowledge-synthesis.md`)

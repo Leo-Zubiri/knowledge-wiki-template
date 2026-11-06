@@ -3,6 +3,9 @@
 End-to-end setup for a knowledge repo made from this template. Everything except step 1 is optional layering; the repo
 is fully usable with just **Markdown + Git**.
 
+> **Shortcut:** ask your agent **"help me set up this knowledge repo"** — it runs the file-based steps and guides the
+> rest. Full checklist: [`SETUP.md`](SETUP.md).
+
 ## 1. Create your domain repo
 ```bash
 git clone git@github.com:Leo-Zubiri/knowledge-wiki-template.git <domain>-knowledge

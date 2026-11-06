@@ -4,6 +4,7 @@ type: anti-pattern
 domain: <domain>
 status: proposed
 summary: <one-line description of the tempting-but-wrong approach and why it fails>
+# aliases: [synonym, alt-term]           # optional — improves lexical recall
 sources:
   - claim: "<evidence that this is harmful>"
     # provide EXACTLY ONE of url (external) or ref (local source-note id):
