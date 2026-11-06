@@ -1,0 +1,21 @@
+# --- Obsidian ---
+# The vault config folder is per-user and may hold secrets (e.g. the Local REST API
+# key in plugin data.json). Keep churn and secrets out of Git.
+.obsidian/workspace.json
+.obsidian/workspace*.json
+.obsidian/cache
+.obsidian/plugins/*/data.json
+# If you prefer not to share ANY Obsidian config across clones, ignore the whole folder:
+# .obsidian/
+
+# --- OS / editor cruft ---
+.DS_Store
+Thumbs.db
+*~
+*.swp
+.idea/
+.vscode/
+
+# --- Scratch ---
+*.tmp
+.tmp/
