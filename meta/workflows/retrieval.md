@@ -21,9 +21,11 @@ Intersect filters by piping file lists, e.g. verified concepts about a topic:
 comm -12 <(rg -l "^status: verified" notes/ | sort) <(rg -l -i "<topic>" notes/ | sort)
 ```
 
-## 2. Rank by trust
-Prefer `verified` > `reviewed` > `proposed`. Treat `unreviewed` and `deprecated` with care (a `deprecated` note
-should point you to its successor via `superseded-by`).
+## 2. Rank by trust (status is type-scoped)
+For **claim-bearing** notes prefer `verified` > `reviewed` > `proposed`; treat `unreviewed`/`deprecated` with care (a
+`deprecated` note *may* point to a successor via `superseded-by`, but is not required to). For **`decision`** notes the
+states are `proposed → accepted → superseded`/`rejected` (`accepted` ≠ every claim verified). **`source` and `index`
+notes carry no status** — judge a source by its provenance, an index by whether it's current.
 
 ## 3. Read progressively
 1. Read a candidate's **frontmatter + `summary`** first.
@@ -31,13 +33,24 @@ should point you to its successor via `superseded-by`).
 3. Stop when you have enough. Don't load the whole folder.
 
 ## 4. Traverse relationships
-- Follow `related:` entries and `[[wikilinks]]` in the note.
+- Follow `related:` entries and body `[[wikilinks]]` in the note.
 - Find **backlinks** (what points *to* a note) by its id:
   ```sh
   rg -l "\[\[<note-id>\]\]" notes/
   ```
 - The typed `related:` field is plain text, so it is fully greppable even where Obsidian/MCP backlink APIs aren't
   available.
+
+### Deriving inverse relationships (they are NOT stored)
+Only the **canonical** direction of a relation is written (see
+[`../methodology/relationships.md`](../methodology/relationships.md)); the inverse is **derived here at retrieval**.
+To find the inverse for note `X`, search for the canonical link pointing at it:
+```sh
+# what refines X / depends on X / is an example of X / supersedes X:
+rg -n "refines: .*\[\[X\]\]|depends-on: .*\[\[X\]\]|example-of: .*\[\[X\]\]|superseded-by: .*\[\[X\]\]" notes/
+```
+So `supersedes` (inverse of the stored `superseded-by`), `refined-by`, `prerequisite-of`, and `has-example` are all
+obtained by searching — never hand-maintained on the other note.
 
 ## 5. Cite what you use
 When you answer from a note, cite the note and the `sources:` entry its claim rests on.

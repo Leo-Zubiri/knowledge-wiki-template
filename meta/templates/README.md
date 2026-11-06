@@ -18,4 +18,7 @@ core plugin at this folder; see [`../obsidian.md`](../obsidian.md)). Do not keep
 | [`guide.md`](guide.md) | `guide` | whole page | `notes/` |
 | [`index.md`](index.md) | `index` | n/a (MOC) | `notes/` |
 
-Dates use `YYYY-MM-DD`. Agents may set `status:` to `unreviewed`/`proposed` only.
+Dates use `YYYY-MM-DD`. **Status is type-scoped** — claim-bearing notes use `unreviewed→…→deprecated`, `decision`
+uses `proposed→accepted→superseded`/`rejected`, and `source`/`index` carry no status (see
+[`../methodology/lifecycle.md`](../methodology/lifecycle.md)). Agents may set only the `unreviewed`/`proposed` entry
+states; humans set the rest. `created_by_type` is optional actor-provenance — omit it unless it adds signal.

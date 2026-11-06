@@ -29,11 +29,15 @@ separates four things that are easy to confuse.
   immutable-by-convention + review).
 - Keep commits small and topical so diffs stay reviewable.
 
-## Status-change authority (summary)
-| status | who may set it |
-|---|---|
-| `unreviewed`, `proposed` | agents or humans |
-| `reviewed`, `verified`, `deprecated` | **humans only**, via review |
+## Status-change authority (summary — status is type-scoped)
+| note type | entry states (agents or humans) | later states (**humans only**, via review) |
+|---|---|---|
+| claim-bearing (`concept/pattern/reference/anti-pattern/guide`) | `unreviewed`, `proposed` | `reviewed`, `verified`, `deprecated` |
+| `decision` | `proposed` | `accepted`, `rejected`, `superseded` |
+| `source`, `index` | — (no trust status) | — |
+
+Promotion beyond the entry states is a **human/methodological control** confirmed in Git review (see the
+[validation checklist](validation-checklist.md)), not an automated gate.
 
 ## Concurrency
 There is no CRDT/auto-merge for prose. When humans and agents may both write, prefer **single-writer-at-a-time** or

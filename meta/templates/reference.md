@@ -9,14 +9,16 @@ applies-to:
   tested: "<version this was checked against>"
 sources:
   - claim: "<primary source for this reference>"
-    url: <source URL or [[source-note-id]]>
-    retrieved: <YYYY-MM-DD>
+    # provide EXACTLY ONE of url (external) or ref (local source-note id):
+    url: <https://external-source>
+    # ref: <local-source-id>              # → sources/<local-source-id>.md
+    retrieved: <YYYY-MM-DD>               # required with url; optional with ref
     version: "<version>"
 related:
   - relates-to: "[[<concept-note-id>]]"   # <reason>
 created: <YYYY-MM-DD>
 updated: <YYYY-MM-DD>
-author: agent
+# created_by_type: agent                  # optional actor-provenance (human|agent); omit if unsure — NOT a trust signal
 ---
 
 ## Overview

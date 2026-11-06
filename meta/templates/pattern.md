@@ -6,15 +6,17 @@ status: proposed
 summary: <one-line statement of the problem this pattern solves>
 sources:
   - claim: "<claim / where this pattern is described>"
-    url: <source URL or [[source-note-id]]>
-    retrieved: <YYYY-MM-DD>
+    # provide EXACTLY ONE of url (external) or ref (local source-note id):
+    url: <https://external-source>
+    # ref: <local-source-id>              # → sources/<local-source-id>.md
+    retrieved: <YYYY-MM-DD>               # required with url; optional with ref
     version: "<version if relevant>"
 related:
   - refines: "[[<concept-note-id>]]"      # <this pattern is a concrete form of…>
   - contradicts: "[[<anti-pattern-id>]]"  # <the pitfall it avoids>
 created: <YYYY-MM-DD>
 updated: <YYYY-MM-DD>
-author: agent
+# created_by_type: agent                  # optional actor-provenance (human|agent); omit if unsure — NOT a trust signal
 ---
 
 ## Problem

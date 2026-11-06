@@ -6,14 +6,16 @@ status: proposed
 summary: <one or two line TL;DR of the concept>
 sources:
   - claim: "<the key claim this note makes>"
-    url: <source URL or [[source-note-id]]>
-    retrieved: <YYYY-MM-DD>
+    # provide EXACTLY ONE of url (external) or ref (local source-note id):
+    url: <https://external-source>
+    # ref: <local-source-id>              # → sources/<local-source-id>.md
+    retrieved: <YYYY-MM-DD>               # required with url; optional with ref
     version: "<version if relevant>"
 related:
-  - relates-to: "[[<other-note-id>]]"   # <why they relate>
+  - relates-to: "[[<other-note-id>]]"     # <why they relate>
 created: <YYYY-MM-DD>
 updated: <YYYY-MM-DD>
-author: agent
+# created_by_type: agent                  # optional actor-provenance (human|agent); omit if unsure — NOT a trust signal
 ---
 
 ## Summary

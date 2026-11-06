@@ -12,9 +12,11 @@ Keeping these in separate folders means a wrong synthesis can always be re-deriv
 | **Preserved source** | `sources/` | evidence (fidelity to original) | conventionally immutable |
 | **Synthesized note** | `notes/` | knowledge (grows by review) | edited by consolidation |
 
-## Review states (apply to `notes/` only)
-Sources carry **no** `status:` — they are preserved, not reviewed.
+## Review states — scoped by note type
+Status is **not** one-size-fits-all. `source` and `index` notes carry **no trust status** (a source is preserved
+evidence; an index is navigation). The two ladders:
 
+**Claim-bearing notes** (`concept/pattern/reference/anti-pattern/guide`):
 ```
 unreviewed → proposed → reviewed → verified → deprecated
 ```
@@ -22,11 +24,23 @@ unreviewed → proposed → reviewed → verified → deprecated
 - **proposed** — an agent or human has synthesized it and put it forward for review.
 - **reviewed** — a human has examined the note and its claims, but some evidence or validation may remain incomplete.
 - **verified** — a human has confirmed the relevant claims against traceable sources and approved the note as
-  reliable knowledge. Requires ≥1 resolvable `sources:` citation.
-- **deprecated** — superseded or no longer true; must point to its replacement via `superseded-by`.
+  reliable knowledge. Requires passing the [validation checklist](../workflows/validation-checklist.md) (≥1 resolvable
+  source).
+- **deprecated** — no longer true or relevant. **A deprecated note need NOT have a successor.** If a *specific*
+  replacement exists, point to it with the **`superseded-by`** relationship (see
+  [`relationships.md`](relationships.md)) — otherwise just `deprecated`.
 
-**Who changes status:** agents may set `unreviewed` / `proposed`. **Only a human** sets `reviewed` / `verified` /
-`deprecated`, recorded through Git review (see [`../workflows/git-governance.md`](../workflows/git-governance.md)).
+**Decision notes** (`decision`, ADR semantics):
+```
+proposed → accepted → superseded      (or proposed → rejected)
+```
+- **proposed** — a decision put forward. **accepted** — adopted. **`accepted` does NOT mean every underlying claim is
+  verified**; it means the decision was made. **rejected** — considered and turned down. **superseded** — replaced by
+  a newer decision; point to it with `superseded-by`.
+
+**Who changes status:** agents may set `unreviewed` / `proposed` only. **Only a human** sets `reviewed` / `verified` /
+`deprecated` (claim-bearing) and `accepted` / `rejected` / `superseded` (decision), recorded through Git review (see
+[`../workflows/git-governance.md`](../workflows/git-governance.md)).
 
 ## The governance rule (non-negotiable)
 Agents may **capture, analyze, synthesize, and propose** — but an **agent observation never auto-becomes verified
@@ -46,10 +60,12 @@ frame, for reference:
 6. **Validate** — provenance present, links resolve, claims cite sources, contradictions flagged.
 7. **Publish** — a human promotes to `reviewed` → `verified`.
 8. **Retrieve** — humans/agents query and read progressively (see [retrieval](../workflows/retrieval.md)).
-9. **Maintain** — detect obsolescence; **update** existing notes (Git keeps history); `deprecate` with a successor.
+9. **Maintain** — detect obsolescence; **update** existing notes (Git keeps history); `deprecate` when outdated (link a
+   successor via `superseded-by` only if a specific replacement exists).
 
 ## Contradiction & obsolescence (handle, don't pretend to automate)
 When new material conflicts with an existing note, **do not silently overwrite**. Record it explicitly: add a
 `contradicts` link, or a short `type: anti-pattern`/divergence note, and raise it for human review. Mark outdated
-knowledge `deprecated` with `superseded-by`. *(No studied tool reliably automates contradiction detection; here it
+knowledge `deprecated` (and add `superseded-by` only when a specific replacement exists). *(No studied tool reliably
+automates contradiction detection; here it
 is an agent **workflow** plus human judgment, not a feature claim.)*

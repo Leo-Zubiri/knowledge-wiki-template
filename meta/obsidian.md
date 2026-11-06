@@ -20,9 +20,12 @@ To keep knowledge portable, rely on features that are just Markdown/YAML under t
 ## Dashboards: prefer Bases (no code)
 Use the **Bases** core plugin for dashboards over your notes' properties. It stores everything in your local
 Markdown and a diff-friendly `.base` file, and runs **no arbitrary code**. Useful views:
-- **Unverified queue:** filter `status != verified`.
+- **Unverified queue (claim-bearing):** filter `status` is one of `unreviewed`/`proposed`/`reviewed` (status is
+  type-scoped — don't just use `status != verified`, since `decision` notes use `accepted`/… and `source`/`index`
+  carry no status).
+- **Decisions needing attention:** `type` is `decision` and `status` is `proposed`.
 - **By domain / type / applies-to version.**
-- **Missing provenance:** notes with empty `sources`.
+- **Missing provenance:** claim-bearing notes with empty `sources`.
 - **Recently updated.**
 
 **Avoid** DataviewJS and Templater *scripts* for shared dashboards — they execute arbitrary JS/shell (a code-execution

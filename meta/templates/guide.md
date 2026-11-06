@@ -6,14 +6,16 @@ status: proposed
 summary: <one-line statement of what the reader will accomplish>
 sources:
   - claim: "<source backing the steps>"
-    url: <source URL or [[source-note-id]]>
-    retrieved: <YYYY-MM-DD>
+    # provide EXACTLY ONE of url (external) or ref (local source-note id):
+    url: <https://external-source>
+    # ref: <local-source-id>              # → sources/<local-source-id>.md
+    retrieved: <YYYY-MM-DD>               # required with url; optional with ref
     version: "<version if relevant>"
 related:
   - depends-on: "[[<prerequisite-note-id>]]"   # <what to know first>
 created: <YYYY-MM-DD>
 updated: <YYYY-MM-DD>
-author: agent
+# created_by_type: agent                  # optional actor-provenance (human|agent); omit if unsure — NOT a trust signal
 ---
 
 ## Goal

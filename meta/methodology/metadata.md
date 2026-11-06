@@ -9,38 +9,64 @@ Keep these separate — they answer different questions:
 
 - **Content type** — *what the document is* → `type:`
   `source · concept · pattern · decision · reference · anti-pattern · guide · index`
-- **Review status** — *how much it is trusted* → `status:`
-  `unreviewed · proposed · reviewed · verified · deprecated` (see [`lifecycle.md`](lifecycle.md))
+  (when to use which: [`note-types.md`](note-types.md)).
+- **Review status** — *how much it is trusted* → `status:` — **scoped by type** (see [`lifecycle.md`](lifecycle.md)):
+  - claim-bearing (`concept/pattern/reference/anti-pattern/guide`): `unreviewed · proposed · reviewed · verified · deprecated`
+  - `decision`: `proposed · accepted · rejected · superseded`
+  - `source` and `index`: **no trust status**.
 - **Storage location** — *where it lives* → the **folder** (`inbox/ | sources/ | notes/`).
-  This is encoded by the path, **not** a frontmatter field, so it can never disagree with reality.
-
-A preserved **source** therefore has a `type` and lives in `sources/`, but has **no `status`** — it does not ride
-the synthesis review lifecycle.
+  Encoded by the path, **not** a frontmatter field, so it can never disagree with reality.
 
 ## Fields
 | field | applies to | required? | meaning / maintenance rule |
 |---|---|---|---|
-| `id` | all notes | **yes** | stable, human-readable slug. **Never changes**, even if the title does. |
+| `id` | all notes | **yes** | stable, human-readable slug = the filename. **Never changes**, even if the title does. |
 | `type` | all | **yes** | content type (above). |
 | `created` | all | **yes** | date the file was first created. Never edited afterward. |
 | `updated` | all | **yes** | date of the last *substantive content* change (not trivial edits). |
-| `status` | `notes/` | **yes** (N/A to `sources/`) | review state. Agents set `unreviewed`/`proposed` only. |
+| `status` | claim-bearing + `decision` | **yes** (N/A to `source`/`index`) | review state, per the type's ladder. Agents set `unreviewed`/`proposed` only. |
 | `domain` | `notes/`, `sources/` | **yes** | e.g. `example`. Enables multi-domain use and filtering. |
 | `source` | `sources/` | **yes** | the original's provenance: `url`, `title`, `retrieved`, `version` (+ `hash` if useful). |
-| `sources` | synthesized `notes/` | **required for `verified`** | list of `{claim, url, retrieved, version}` — the evidence trail. |
+| `sources` | synthesized `notes/` | **required for `verified`** | list of provenance entries (see rules below). |
 | `summary` | `notes/` | recommended | 1–2 line TL;DR for progressive disclosure (lets a reader/agent stop early). |
-| `related` | optional | optional | typed, reason-annotated links (see vocabulary below). |
-| `author` | all | optional | `human` or `agent` — a *trust* signal (human- vs agent-authored), independent of the Git committer. |
+| `related` | optional | optional | typed, reason-annotated links — see [`relationships.md`](relationships.md). |
+| `created_by_type` | all | optional | `human` or `agent` — **actor-provenance only, NOT a trust signal.** No default; never fabricate. |
 | `applies-to` | `reference`/`concept` | type-scoped | version applicability (e.g. `min`/`tested`) — only where relevant. |
-| `superseded-by` | `deprecated` only | type-scoped | `[[successor-note]]` — deprecated knowledge must point to its replacement. |
+| `superseded-by` | deprecated/superseded notes | type-scoped | `[[successor-id]]` — set **only when a specific replacement exists** (see lifecycle). |
 
-**Not used:** `last_modified_by` — **Git already records author and full change history**; a frontmatter copy would
-be redundant and drift. (`author` is kept only for the human-vs-agent *trust* distinction Git's committer field
-doesn't capture.)
+**Notes on fields:**
+- **`created_by_type` is provenance, not trust.** Trust comes from `status` + `sources`/evidence + human review —
+  never from who authored a note. Templates ship **no default** for it (no misleading attribution): an agent adds
+  `created_by_type: agent` when it authors; a human may add `human`; otherwise omit it (Git records identity/history).
+- **No `last_modified_by`** — Git (`git log`/`git blame`) already records who changed what, when.
 
-### Relationship vocabulary (`related:`)
-`relates-to · refines / refined-by · contradicts · supersedes / superseded-by · source-of / derived-from ·
-depends-on / prerequisite-of · example-of / has-example`. Always include a short reason for the link.
+## `sources:` — provenance rules (claim-level)
+Each entry records one claim and where it comes from:
+- **Required:** `claim`, and **exactly one of `url` (external) or `ref` (local)** — never both, never neither.
+- **`retrieved`:** **required with `url`** (external evidence is time-sensitive); **optional with `ref`** (the local
+  source note already records its own `retrieved`). `version` optional in both.
+- **`ref` is a plain stable `id`** (= the `sources/` note's filename), resolving to `sources/<id>.md`. It is **not** a
+  `[[wikilink]]`: Obsidian does not treat links inside nested frontmatter as real links, and a plain id is honest,
+  trivially checkable, and stable against title changes (links resolve by filename). **ids/filenames are immutable** —
+  to update an original, preserve a *new* source note, don't rename the old one.
+- **Checks:** a `ref` must resolve to an existing file (deterministic); a `url` must be syntactically valid.
+  **URL reachability is not a gate** — a temporarily unreachable URL does not demote a `verified` note (see the
+  [validation checklist](../workflows/validation-checklist.md) → source liveness).
+
+```markdown
+sources:
+  - claim: "Events decouple the emitter from the receiver"
+    ref: events-doc                # local preserved source → sources/events-doc.md
+    retrieved: 2026-11-05
+  - claim: "Measured ~40% latency reduction under load"
+    url: https://example.com/benchmark
+    retrieved: 2026-11-05
+    version: "1.0"
+```
+
+## Relationships
+Typed, reason-annotated links live in `related:`; **provenance does not** (that's `sources:`). Store the canonical
+direction only; inverses are derived at retrieval. Full taxonomy: [`relationships.md`](relationships.md).
 
 ## Examples
 ### A synthesized note (`notes/<id>.md`)
@@ -53,15 +79,13 @@ status: verified
 summary: When to prefer event/message decoupling over direct calls, and the coupling trade-off.
 sources:
   - claim: "Events decouple the emitter from the receiver"
-    url: https://example.com/docs/events
+    ref: events-doc
     retrieved: 2026-11-05
-    version: "1.0"
 related:
   - refines: "[[observer-pattern]]"        # events are a concrete form of the observer pattern
-  - contradicts: "[[tight-coupling-antipattern]]"
+  - contradicts: "[[tight-coupling]]"      # the opposite coupling choice
 created: 2026-11-05
 updated: 2026-11-05
-author: agent
 ---
 
 ## Summary

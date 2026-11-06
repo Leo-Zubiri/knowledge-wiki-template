@@ -55,6 +55,7 @@ rigid law" (<https://zettelkasten.de/atomicity/>). So:
   folders" as dogma (we use a light topic structure **plus** links).
 
 ### Relationship vocabulary (typed links)
-Use these in a note's `related:` frontmatter and/or inline; each should carry a short reason:
-`relates-to · refines / refined-by · contradicts · supersedes / superseded-by · source-of / derived-from ·
-depends-on / prerequisite-of · example-of / has-example`.
+Typed, reason-annotated links live in a note's `related:` frontmatter (and body `[[wikilinks]]` for human/Obsidian
+navigation). Each stores **one canonical direction**; inverses are **derived at retrieval**, not hand-maintained.
+**Provenance (note→source) is not a relationship** — it lives in the `sources:` field. See the full taxonomy and the
+canonical-direction rules in [`relationships.md`](relationships.md).

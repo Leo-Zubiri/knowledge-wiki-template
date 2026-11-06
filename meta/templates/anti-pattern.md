@@ -6,14 +6,16 @@ status: proposed
 summary: <one-line description of the tempting-but-wrong approach and why it fails>
 sources:
   - claim: "<evidence that this is harmful>"
-    url: <source URL or [[source-note-id]]>
-    retrieved: <YYYY-MM-DD>
+    # provide EXACTLY ONE of url (external) or ref (local source-note id):
+    url: <https://external-source>
+    # ref: <local-source-id>              # → sources/<local-source-id>.md
+    retrieved: <YYYY-MM-DD>               # required with url; optional with ref
     version: "<version if relevant>"
 related:
   - contradicts: "[[<pattern-or-concept-id>]]"   # <the correct approach>
 created: <YYYY-MM-DD>
 updated: <YYYY-MM-DD>
-author: agent
+# created_by_type: agent                  # optional actor-provenance (human|agent); omit if unsure — NOT a trust signal
 ---
 
 ## The anti-pattern
