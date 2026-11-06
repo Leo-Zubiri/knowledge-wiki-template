@@ -11,6 +11,8 @@ The knowledge itself lives in `inbox/`, `sources/`, and `notes/`. This folder ho
 - [`templates/`](templates/) — the single copy of the note templates (also usable as Obsidian templates).
 - [`interoperability.md`](interoperability.md) — agent compatibility matrix, the two optional adapters, and the
   Agent-Skills pattern.
+- [`specialist.md`](specialist.md) — provider-neutral spec of the **Obsidian & Knowledge Operations Specialist**
+  (its Claude Code / Codex adapter is the thin `.claude/skills/knowledge-ops/` skill). Optional, not a dependency.
 - [`obsidian.md`](obsidian.md) — optional Obsidian configuration for humans.
 - [`mcp-setup.md`](mcp-setup.md) — optional Local REST API (with MCP) setup for agents, while Obsidian is open.
 - [`security.md`](security.md) — security & operational considerations.

@@ -8,8 +8,8 @@ worth processing.
 ## Steps
 1. Create a file in `inbox/` (any readable name, e.g. `inbox/2026-11-05-some-idea.md`).
 2. Paste or write the thing. One capture per file, or a running daily note — either is fine.
-3. Frontmatter is **optional**. At most:
-   ```yaml
+3. Frontmatter is **optional**. At most (or copy the [capture template](../templates/capture.md) for triage fields):
+   ```markdown
    ---
    type: source        # optional hint; omit if unsure
    created: 2026-11-05
@@ -20,7 +20,7 @@ worth processing.
 ## Rules
 - Capture by **resonance** — if it's interesting or useful, grab it; don't polish.
 - Items in `inbox/` are **never cited** as knowledge and **may stay here indefinitely**.
-- If/when an item earns more, escalate:
+- If/when an item earns more, escalate (or process the whole inbox in a structured pass via [intake](intake.md)):
   - worth keeping as **evidence** → [source preservation](source-preservation.md)
   - worth **integrating** into the wiki → [knowledge synthesis](knowledge-synthesis.md)
 

@@ -16,6 +16,12 @@ Thumbs.db
 .idea/
 .vscode/
 
+# --- Secrets / local MCP config (keep out of Git) ---
+# Live MCP client config and env file may reference/hold credentials.
+# Only the *.example files are tracked; copy them locally when opting in.
+.mcp.json
+.env
+
 # --- Scratch ---
 *.tmp
 .tmp/

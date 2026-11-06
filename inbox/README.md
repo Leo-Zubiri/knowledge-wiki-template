@@ -8,8 +8,10 @@ Unprocessed input lands here: links, ideas, observations, pasted snippets, tempo
 - Items **may stay here indefinitely** — a capture does not have to become a note.
 - Frontmatter is optional here; at most `type` and `created`.
 
-See [`../meta/workflows/quick-capture.md`](../meta/workflows/quick-capture.md). When an item is worth keeping as
-evidence, move to [source preservation](../meta/workflows/source-preservation.md); when it deserves integration,
-follow [knowledge synthesis](../meta/workflows/knowledge-synthesis.md).
+Capture with [`../meta/workflows/quick-capture.md`](../meta/workflows/quick-capture.md) (optionally the
+[capture template](../meta/templates/capture.md) for triage-friendly frontmatter). To process the inbox in a
+structured pass, follow [`../meta/workflows/intake.md`](../meta/workflows/intake.md): items worth keeping as evidence go
+to [source preservation](../meta/workflows/source-preservation.md); items that deserve integration follow
+[knowledge synthesis](../meta/workflows/knowledge-synthesis.md).
 
 > This README keeps the folder under version control. Delete it once the folder has real content if you wish.

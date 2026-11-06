@@ -19,7 +19,7 @@ Level 1 — any agent that can read files can use this repo.
 - `meta/` — the rules: [methodology](meta/methodology/) (incl. [note-types](meta/methodology/note-types.md),
   [relationships](meta/methodology/relationships.md), [metadata](meta/methodology/metadata.md),
   [lifecycle](meta/methodology/lifecycle.md)), [workflows](meta/workflows/), [templates](meta/templates/),
-  [interoperability](meta/interoperability.md), and integration/security docs.
+  [interoperability](meta/interoperability.md), the [specialist spec](meta/specialist.md), and integration/security docs.
 
 Each note carries YAML frontmatter with three **independent** dimensions — see
 [`meta/methodology/metadata.md`](meta/methodology/metadata.md):
@@ -44,8 +44,9 @@ Full procedure: [`meta/workflows/retrieval.md`](meta/workflows/retrieval.md). In
 5. **Cite.** When you use a claim, cite the note and its `sources:` entry.
 
 ## How to CONTRIBUTE
-Pick the **proportional** path — do not run the full lifecycle for every scrap. Details in
-[`meta/workflows/`](meta/workflows/).
+Pick the **proportional** path — do not run the full lifecycle for every scrap. To feed/process material in a
+structured pass, follow [`meta/workflows/intake.md`](meta/workflows/intake.md) (route-by-input-type + the intake loop).
+Details for each path in [`meta/workflows/`](meta/workflows/).
 - **Quick capture** → [`quick-capture.md`](meta/workflows/quick-capture.md): a link/idea/observation goes into
   `inbox/`. It **may stay there forever**; you are not required to make a note.
 - **Source preservation** → [`source-preservation.md`](meta/workflows/source-preservation.md): preserve an original

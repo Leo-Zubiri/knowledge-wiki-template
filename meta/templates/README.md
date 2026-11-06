@@ -18,6 +18,9 @@ core plugin at this folder; see [`../obsidian.md`](../obsidian.md)). Do not keep
 | [`guide.md`](guide.md) | `guide` | whole page | `notes/` |
 | [`index.md`](index.md) | `index` | n/a (MOC) | `notes/` |
 
+Plus one **non-note helper:** [`capture.md`](capture.md) — a triage-friendly template for raw `inbox/` captures. It is
+**not** a content type and is never cited; see [`../workflows/intake.md`](../workflows/intake.md).
+
 Dates use `YYYY-MM-DD`. **Status is type-scoped** — claim-bearing notes use `unreviewed→…→deprecated`, `decision`
 uses `proposed→accepted→superseded`/`rejected`, and `source`/`index` carry no status (see
 [`../methodology/lifecycle.md`](../methodology/lifecycle.md)). Agents may set only the `unreviewed`/`proposed` entry

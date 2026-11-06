@@ -85,11 +85,12 @@ atomicity *where it helps*); **PARA** → an optional task layer, never the refe
 
 ## 7. How an AI agent interacts (filesystem-first)
 Agents read [`AGENTS.md`](AGENTS.md) and work with ordinary file/search/`git` tools — **no Obsidian, no MCP required**:
-search with `ripgrep`, read progressively (summary → body), traverse links, and contribute via one of three
-**proportional** workflows — [quick-capture](meta/workflows/quick-capture.md),
-[source-preservation](meta/workflows/source-preservation.md),
+search with `ripgrep`, read progressively (summary → body), traverse links, and contribute via the structured
+[intake loop](meta/workflows/intake.md) over three **proportional** paths —
+[quick-capture](meta/workflows/quick-capture.md), [source-preservation](meta/workflows/source-preservation.md),
 [knowledge-synthesis](meta/workflows/knowledge-synthesis.md) — then propose changes as Git diffs. Retrieval protocol:
-[`meta/workflows/retrieval.md`](meta/workflows/retrieval.md).
+[`meta/workflows/retrieval.md`](meta/workflows/retrieval.md). For guided help there's an optional
+[specialist](meta/specialist.md) (Obsidian / MCP / intake / retrieval).
 
 ## 8. Why it is agent-agnostic (honestly)
 Interoperability has four levels (full detail + a verified support matrix in
@@ -110,6 +111,8 @@ The Obsidian Local REST API plugin can expose read/search tools over MCP — a c
 no semantic search and is unavailable when Obsidian is closed). See [`meta/mcp-setup.md`](meta/mcp-setup.md).
 
 ## 11. Instantiate the template for a new domain
+**New here? Follow [`QUICKSTART.md`](QUICKSTART.md)** for the end-to-end setup (domain → Obsidian → MCP → feed → review).
+In short:
 1. Clone/copy into `<domain>-knowledge`. 2. Pick your `domain:` value. 3. (Optional) open in Obsidian; (optional) set
 up MCP. 4. Add material to [`inbox/`](inbox/) and preserve originals into [`sources/`](sources/). 5. Ingest via the
 [workflows](meta/workflows/). 6. Extend metadata/templates **additively**. 7. Maintain & version — update notes rather
