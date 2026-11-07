@@ -57,6 +57,10 @@ Details for each path in [`meta/workflows/`](meta/workflows/).
 
 **Always search before creating.** If a note already covers the topic, **update it** — do not create a duplicate.
 
+## Using this repo from another project (optional)
+Consuming this knowledge base from a **separate project repo** (read-only consult + stage reusable finds back) →
+[`meta/workflows/cross-repo-consumption.md`](meta/workflows/cross-repo-consumption.md).
+
 ## Governance — what you may and may not do
 See [`meta/workflows/git-governance.md`](meta/workflows/git-governance.md). The rules:
 - You may set `status:` only to the **entry states** for the note's type: `unreviewed`/`proposed` (claim-bearing) or

@@ -144,6 +144,8 @@ The repo is fully usable as plain Markdown + Git. On top, all optional:
   **no retrieval upgrade** (lexical only, capped, offline when Obsidian is closed) — filesystem-first stays the default.
 - **The specialist** ([`meta/specialist.md`](meta/specialist.md)) — a guidance role (its Claude Code / Codex adapter is
   the thin `.claude/skills/knowledge-ops/` skill). It *prepares* changes but **never marks anything `verified`.**
+- **Consuming this repo from another project** ([`meta/workflows/cross-repo-consumption.md`](meta/workflows/cross-repo-consumption.md))
+  — let a separate project repo read this knowledge base (read-only) and stage reusable finds back; domain-agnostic, no new infra.
 
 **On adding infrastructure:** the template ships no CLI/DB/index/embeddings/MCP on purpose. Propose one only after a
 *measured, repeated* failure of filesystem retrieval — and the smallest possible addition. Never for convenience.
