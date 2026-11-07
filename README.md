@@ -7,6 +7,10 @@ Git-based governance** — usable at the same time by **humans** (optionally in 
 Clone it to start a domain knowledge base (e.g. `laravel-knowledge`, `architecture-knowledge`). The template provides
 the structure, conventions, workflows, and agent instructions; each domain repo holds its own knowledge.
 
+> **New here?** [`OVERVIEW.md`](OVERVIEW.md) is a friendly, end-to-end guided tour (what it is, why it's shaped this
+> way, what using it feels like). This README is the terse architecture intro; [`QUICKSTART.md`](QUICKSTART.md) gets you
+> set up; [`AGENTS.md`](AGENTS.md) is the agent entry point.
+
 ## 1. What this is
 A single repository that is both a human **Second Brain** and an agent-readable **LLM Wiki**, where every piece of
 knowledge is plain Markdown + YAML under Git, cites its sources, and links to related knowledge.
