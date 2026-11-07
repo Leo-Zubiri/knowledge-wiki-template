@@ -11,6 +11,9 @@ the structure, conventions, workflows, and agent instructions; each domain repo 
 > way, what using it feels like). This README is the terse architecture intro; [`QUICKSTART.md`](QUICKSTART.md) gets you
 > set up; [`AGENTS.md`](AGENTS.md) is the agent entry point.
 
+> **Name:** the project is **"Knowledge Repository Template"**; its GitHub repository is `knowledge-wiki-template` (so the
+> clone URL in [`QUICKSTART.md`](QUICKSTART.md) uses that name). Same project, two labels.
+
 ## 1. What this is
 A single repository that is both a human **Second Brain** and an agent-readable **LLM Wiki**, where every piece of
 knowledge is plain Markdown + YAML under Git, cites its sources, and links to related knowledge.
@@ -147,3 +150,9 @@ See [`meta/workflows/git-governance.md`](meta/workflows/git-governance.md).
 ```
 An optional PARA task layer (`projects/`, `areas/`) is described in
 [`meta/methodology/methodologies.md`](meta/methodology/methodologies.md); create it only if your domain tracks work.
+For a guide to everything under `meta/` (methodology, workflows, templates, integrations), see
+[`meta/README.md`](meta/README.md).
+
+## License
+Released under the [MIT License](LICENSE) — © 2026 Leo Zubiri. You are free to clone, adapt, and redistribute the
+template; each domain repo you create from it owns its own knowledge and may set its own license.

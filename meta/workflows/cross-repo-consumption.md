@@ -28,25 +28,34 @@ portable floor here.
 independent checkout (in Claude Code, `additionalDirectories` in the project's `.claude/settings.json`, or `--add-dir`;
 other agents have equivalents). This references an outside checkout — it is not a copy in the project.
 
-> **Reachable ≠ read-only (enforce the boundary separately).** `additionalDirectories` / `--add-dir` only *add a path to
+> **Reachable ≠ read-only (the boundary is not automatic).** `additionalDirectories` / `--add-dir` only *add a path to
 > the workspace*; the agent then acts there **under the session's existing permission rules**. They do **not** make the
-> path read-only. An instruction like "this is read-only" is **agent policy, not a technical control** — exactly the
-> distinction [`git-governance.md`](git-governance.md) draws (policy vs. real enforcement). To actually guarantee the
-> boundary, enforce it **separately**:
-> - a **write-deny permission rule scoped to the knowledge-repo path** (deny `Write`/`Edit`/other write-capable tools on
->   that path in the project's agent permissions), and/or
-> - **OS-level isolation** (check out / mount the path read-only for the development context).
+> path read-only, and an instruction like "treat this as read-only" is **agent policy, not a technical control** — the
+> distinction [`git-governance.md`](git-governance.md) draws (policy vs. real enforcement). Enforce the boundary in
+> layers, strongest last:
+> - **Harness permission rules — risk reduction, not an absolute boundary.** A deny rule scoped to the knowledge-repo
+>   path (in the project's agent permissions) lowers the chance of accidental writes, but it is **not** a security
+>   guarantee. In particular, **denying `Write`/`Edit` alone does not necessarily prevent writes made through `Bash` or
+>   other execution paths** — you would also have to constrain those tools — and the protection still depends on the
+>   harness and how it is configured.
+> - **OS-level read-only — the robust boundary.** When a **hard guarantee** is required, make the path read-only at the
+>   **operating-system level** (e.g. a read-only checkout or mount for the development context). This holds regardless of
+>   the agent or harness.
 >
 > Write access to the knowledge repo belongs only to the separate **ingestion pass** (§4) — a different context with
 > different permissions.
 
 **Load the knowledge repo's `AGENTS.md` explicitly.** Do **not** assume an `AGENTS.md` living in an *added* directory is
-auto-discovered. Agents auto-load instruction files from the **project's own** root only (and in Claude Code a root
-`CLAUDE.md` takes precedence over a sibling `AGENTS.md` — see [`interoperability.md`](../interoperability.md)). So the
-**project's own** (auto-loaded) `CLAUDE.md`/`AGENTS.md` must **explicitly tell the agent to read
-`<knowledge-repo>/AGENTS.md`** before consulting the knowledge base, then follow its [retrieval protocol](retrieval.md):
-prefer `verified`, surface `proposed` with its status, **cite note `id`s** in reasoning and in the project's own decision
-records, and keep returned context small.
+auto-discovered. Agents auto-load instruction files from the **project's own tree** — **not** automatically from **added
+external directories** (and in Claude Code a root `CLAUDE.md` takes precedence over a sibling `AGENTS.md` — see
+[`interoperability.md`](../interoperability.md)). So the **project's own** (auto-loaded) `CLAUDE.md`/`AGENTS.md` must
+**explicitly tell the agent to read `<knowledge-repo>/AGENTS.md`** before consulting the knowledge base, then follow its
+[retrieval protocol](retrieval.md): prefer `verified`, surface `proposed` with its status, **cite note `id`s** in
+reasoning and in the project's own decision records, and keep returned context small.
+
+**If the knowledge repo is unavailable** (not configured, path missing, or unreadable), **say so explicitly — report that
+the shared knowledge could not be consulted — and continue without blocking development** (fall back to bounded research,
+§2). Never silently skip the consultation.
 
 ## 2. When knowledge is insufficient → bounded research
 Use [`retrieval.md`](retrieval.md)'s **stop rule** to decide whether there is a *real* gap (two passes with different
@@ -102,8 +111,10 @@ This project consults a shared knowledge repository for reusable `<domain>` know
 - **Consult before non-trivial `<domain>` decisions:** first **read `<knowledge-repo>/AGENTS.md`**, then follow its
   retrieval protocol to search existing knowledge. Prefer `verified` notes; surface `proposed` ones **with their
   status**; **cite note `id`s** in your reasoning and in this project's decision records (ADRs/`docs/`).
-- **Read-only:** never write to the knowledge repo from this project. (This line is policy; the real boundary is enforced
-  by permissions/OS — see setup.)
+- **Read-only:** never write to the knowledge repo from this project. This line is **policy, not a control** — the real
+  boundary must be enforced separately (OS-level read-only for a hard guarantee; see setup).
+- **If the knowledge base is unavailable** (path not configured or unreadable): **say that it could not be consulted** and
+  continue — do **not** block development (do bounded research instead).
 - **If knowledge is insufficient:** do **timeboxed** research against authoritative sources; **do not block development**.
 - **Preserve reusable discoveries:** stage them as raw candidates in `knowledge-outbox/` (the find + its source + why
   it's reusable). A **separate, authorized ingestion pass** later turns them into `proposed` notes in the knowledge repo
@@ -113,8 +124,10 @@ This project consults a shared knowledge repository for reusable `<domain>` know
 > **Setup note (do this once per project).**
 > 1. Make the knowledge repo **reachable**: add its path to the project's `.claude/settings.json` `additionalDirectories`
 >    (or launch with `--add-dir`). This points at an independent checkout — not a copy.
-> 2. **Enforce read-only separately** (reachability alone does not): add a write-deny permission rule scoped to the
->    knowledge-repo path, and/or check it out read-only at the OS level for the dev context.
+> 2. **Enforce read-only separately** — reachability alone does not. A harness **permission deny rule** on the
+>    knowledge-repo path *reduces risk* but is **not** an absolute boundary (a `Write`/`Edit` deny does not by itself stop
+>    writes via `Bash` or other execution paths, so constrain those too, and it still depends on the harness). For a
+>    **hard guarantee**, make the path **read-only at the OS level** (read-only checkout/mount) for the dev context.
 > 3. Create the project's `knowledge-outbox/` staging folder.
 > 4. Decide **who/when** runs the ingestion pass (a human, or an authorized agent with write access to the knowledge repo).
 

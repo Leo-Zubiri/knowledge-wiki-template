@@ -67,9 +67,11 @@ Only a **measured, repeated** failure justifies revisiting the "not building" li
 - a hard need to retrieve **without Obsidian** that the filesystem genuinely can't meet.
 Write it up with examples and propose the **smallest** addition — never infrastructure for convenience.
 
-## Validation experiment (run in a real domain repo, e.g. P2)
-To prove this protocol on a real corpus (don't claim results before running): seed ~10–20 notes (some `verified`, some
-`proposed`, one deliberate contradiction), then for representative questions compare strategies (metadata→read vs
-ripgrep-progressive vs MCP) on: relevance of retrieved notes, answer correctness, source traceability, files inspected,
-content returned to the model, tool calls, and approximate tokens. Expected: filesystem-first answers correctly with
-few files and small context.
+## Validating this protocol on your own corpus (optional)
+To check that filesystem-first retrieval works well for your domain, run a small evaluation on a real `<domain>-knowledge`
+repo rather than assuming results. Seed a representative sample (~10–20 notes — a mix of `verified` and `proposed`,
+including at least one deliberate contradiction). Then, for a set of representative questions, compare retrieval
+strategies (metadata→read vs. ripgrep-progressive vs. MCP, where available) on: relevance of the notes retrieved, answer
+correctness, source traceability, number of files inspected, content returned to the model, tool calls, and approximate
+tokens. Use what you measure to decide whether the filesystem protocol meets your needs before adding any tooling (see
+"Signs the filesystem is NOT enough" above).
