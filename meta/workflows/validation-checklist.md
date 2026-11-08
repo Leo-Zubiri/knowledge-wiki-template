@@ -83,7 +83,7 @@ for kind, items in (("note", notes), ("source", srcs)):
                 cited.add(s["ref"])
                 if s["ref"] not in srcs: bad.append(f"{i}: ref {s['ref']} missing")
         links = set(re.findall(r"\[\[([^\]|#]+)", body))
-        bad += [f"{i}: broken link {l}" for l in links if l not in notes]
+        bad += [f"{i}: broken link {l}" for l in links if l not in notes and l not in srcs]
         for r in d.get("related") or []:
             for v in r.values():
                 m = re.search(r"\[\[([^\]]+)\]\]", str(v))
