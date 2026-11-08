@@ -35,6 +35,37 @@ To keep knowledge portable, rely on features that are just Markdown/YAML under t
 - **Templates (core plugin)** = point the *Templates* plugin's template folder at
   [`templates/`](templates/) so new notes start from the right frontmatter. (Keep this the **only** copy.)
 
+## Segment the Graph: *generated knowledge* vs *template/methodology*
+The whole repo is one vault, so the Graph shows **every** `.md` — your knowledge **and** the template's own docs — as
+nodes, colored the same by default. The folders already separate them; to make the split **visible**, add native Graph
+**color Groups** (Graph view → **Groups** → *New group*) keyed by `path:`. This is **view-only** (stored in your local
+`.obsidian/graph.json`); it changes no files, links, frontmatter, or relationships. **The template deliberately does not
+ship `graph.json`** — set these up once per vault (via the Groups UI, or by pasting a `colorGroups` array into your own
+`.obsidian/graph.json`).
+
+Recommended groups — **non-overlapping `path:` queries**, so match order is irrelevant:
+
+| Group query | Meaning | Suggested color |
+|---|---|---|
+| `path:notes` | synthesized knowledge | blue |
+| `path:sources` | preserved evidence / originals | green |
+| `path:inbox` | unprocessed capture | amber |
+| `path:meta OR path:dashboards` | template methodology & dashboards | gray (dim) |
+| `file:README OR file:AGENTS OR file:CLAUDE OR file:OVERVIEW OR file:QUICKSTART OR file:SETUP` | root template docs | gray (dim) |
+
+The **global** graph then shows both, color-coded: *what you generate* (blue/green/amber) vs *the template* (gray).
+(Dot-folders like `.obsidian`/`.claude` aren't graphed; a stray root daily note stays default-colored — harmless.)
+
+**View one category at a time** with the graph **search/filter** box. Core Obsidian has a single filter box (no saved
+presets — the Color Groups above are the always-on cue):
+- only generated knowledge → `path:notes OR path:sources OR path:inbox`
+- only template/methodology → `path:meta OR path:dashboards`
+- both (global) → clear the box
+
+> Domain-agnostic: on any `<domain>-knowledge` instance, `notes/ sources/ inbox/` are always "generated" and `meta/` +
+> root docs are the "template"; adjust colors to taste. To save the filtered views, enable the core **Workspaces**
+> plugin (optional).
+
 ## Dashboards: prefer Bases (no code)
 Use the **Bases** core plugin for dashboards over your notes' properties. It stores everything in your local
 Markdown and a diff-friendly `.base` file, and runs **no arbitrary code**. Useful views:
