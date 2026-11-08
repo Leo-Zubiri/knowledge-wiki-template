@@ -52,3 +52,17 @@ Because `related:` is a nested frontmatter structure, Obsidian does **not** rend
 graph edges (nested frontmatter is unsupported there). That is fine: `related:` is **machine/agent metadata**
 (greppable). For **human/Obsidian graph navigation**, the note body's **"See also" `[[wikilinks]]`** are what Obsidian
 indexes. The two serve different layers; keep typed relations in `related:` and a light human-facing set in the body.
+
+## Unlinked Mentions — a discovery aid, not a link
+Obsidian's **Unlinked Mentions** panel (and Search) surfaces notes where another note's **name or alias** appears in the
+body **without** a link. Use it during **synthesis and relationship review** to *spot candidate* relationships you might
+have missed — it is a **human discovery aid, not a source of truth**.
+
+- **A mention is not a relationship.** Do **not** auto-convert unlinked mentions into `[[wikilinks]]` or "link all" in
+  bulk. Treating co-occurrence as connection produces noise and graph-cosmetic links — the opposite of *connection over
+  collection*.
+- **Promote only real, typed relationships.** When a mention reflects a genuine relation, record it as a **canonical,
+  reason-annotated `related:`** entry (above); if it is provenance, record it in `sources:` (`ref`/`url`) instead. Those
+  greppable fields — not the mention — are the portable, canonical record.
+- Obsidian is only the human lens here; **typed `related:` links and the backlink/`ref:` greps remain the
+  agent/CI source of truth.**
