@@ -48,4 +48,9 @@ sources:
 Because `ref` is the stable id (= filename), keep the filename immutable: if the original changes, preserve a **new**
 source note rather than renaming this one.
 
+**Finding what cites a source (source backlinks):** `ref` is a plain id, **not** a `[[wikilink]]` — so a source does
+**not** show up in wikilink backlinks or Obsidian's graph, and a well-cited source still looks like a graph **"orphan"
+by design**. This is expected, not a broken link. To list the notes that cite a source, grep its id:
+`rg -l "ref: <this-source-id>" notes/`.
+
 Next step, only if the material deserves integration → [knowledge synthesis](knowledge-synthesis.md).

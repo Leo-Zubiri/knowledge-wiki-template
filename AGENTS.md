@@ -39,8 +39,12 @@ Full procedure: [`meta/workflows/retrieval.md`](meta/workflows/retrieval.md). In
 2. **Prefer verified knowledge.** Rank `verified` > `reviewed` > `proposed`; treat `unreviewed`/`deprecated` with care.
 3. **Read progressively.** Read a note's `summary` + frontmatter first; open the full body of only the 1–3 notes
    you actually need. Keep returned context small.
-4. **Traverse relationships.** Follow `related:` and `[[wikilinks]]`. Find backlinks with
-   `rg -l "\[\[<note-id>\]\]" notes/`.
+4. **Traverse relationships.** Follow `related:` and `[[wikilinks]]`. Find **wikilink** backlinks with
+   `rg -l "\[\[<note-id>\]\]" notes/`; find **typed `related:`** backlinks by grepping the relation fields (see
+   [`relationships.md`](meta/methodology/relationships.md)); and find **which notes cite a source** with
+   `rg -l "ref: <source-id>" notes/`. A `sources:` `ref` is a **plain id, not a `[[wikilink]]`**, so it is *not* a
+   wikilink backlink and does **not** appear in Obsidian's graph — a preserved `source` therefore looks like a graph
+   "orphan" **by design** even when notes cite it; the provenance is intact and greppable.
 5. **Cite.** When you use a claim, cite the note and its `sources:` entry.
 
 ## How to CONTRIBUTE
