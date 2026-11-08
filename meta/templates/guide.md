@@ -3,7 +3,7 @@ id: <slug>
 type: guide
 domain: <domain>
 status: proposed
-summary: <one-line statement of what the reader will accomplish>
+summary: "<one-line statement of what the reader will accomplish>"
 # aliases: [synonym, alt-term]           # optional — improves lexical recall
 sources:
   - claim: "<source backing the steps>"
@@ -33,4 +33,4 @@ updated: <YYYY-MM-DD>
 <Caveats; link to relevant anti-patterns.>
 
 ## See also
-- [[<related-note-id>]] — <reason>
+- `[[<related-note-id>]]` — <reason>

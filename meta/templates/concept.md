@@ -3,7 +3,7 @@ id: <slug>
 type: concept
 domain: <domain>
 status: proposed
-summary: <one or two line TL;DR of the concept>
+summary: "<one or two line TL;DR of the concept>"
 # aliases: [synonym, alt-term]           # optional — improves lexical recall (find this by other terms)
 sources:
   - claim: "<the key claim this note makes>"
@@ -26,4 +26,4 @@ updated: <YYYY-MM-DD>
 <Own-words explanation. Keep it focused on this one concept (atomic where it helps). Cite claims back to `sources:`.>
 
 ## See also
-- [[<related-note-id>]] — <reason>
+- `[[<related-note-id>]]` — <reason>

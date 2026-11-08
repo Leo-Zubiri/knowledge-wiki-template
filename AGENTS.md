@@ -44,7 +44,9 @@ Full procedure: [`meta/workflows/retrieval.md`](meta/workflows/retrieval.md). In
    [`relationships.md`](meta/methodology/relationships.md)); and find **which notes cite a source** with
    `rg -l "ref: <source-id>" notes/`. A `sources:` `ref` is a **plain id, not a `[[wikilink]]`**, so it is *not* a
    wikilink backlink and does **not** appear in Obsidian's graph — a preserved `source` therefore looks like a graph
-   "orphan" **by design** even when notes cite it; the provenance is intact and greppable.
+   "orphan" **by design** even when notes cite it; the provenance is intact and greppable. (Optional human layer: a sources hub `index` note —
+   see [`source-preservation.md`](meta/workflows/source-preservation.md).) Source bodies produced by a fetch-time summarizer
+   are `capture: paraphrased`: re-fetch before promoting dependent notes to `verified`.
 5. **Cite.** When you use a claim, cite the note and its `sources:` entry.
 
 ## How to CONTRIBUTE

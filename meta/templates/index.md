@@ -3,7 +3,7 @@ id: <slug>
 type: index
 domain: <domain>
 # index notes are navigational and carry NO trust status (no `status:` field).
-summary: <one-line description of the area this map-of-content covers>
+summary: "<one-line description of the area this map-of-content covers>"
 related:
   - relates-to: "[[<a-key-note-id>]]"   # <reason>
 created: <YYYY-MM-DD>
@@ -17,8 +17,8 @@ own**. List and group the key notes so a reader or agent can orient by reading *
 whole graph.
 
 ### <Subtopic>
-- [[<note-id>]] — <one-line description>
-- [[<note-id>]] — <one-line description>
+- `[[<note-id>]]` — <one-line description>
+- `[[<note-id>]]` — <one-line description>
 
 ### <Subtopic>
-- [[<note-id>]] — <one-line description>
+- `[[<note-id>]]` — <one-line description>

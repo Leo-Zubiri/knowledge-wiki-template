@@ -66,6 +66,16 @@ presets — the Color Groups above are the always-on cue):
 > root docs are the "template"; adjust colors to taste. To save the filtered views, enable the core **Workspaces**
 > plugin (optional).
 
+## Reading the graph honestly
+- **Sources look like orphans.** `ref:` is a plain id, not a link, so cited sources show no edges (by design; see
+  [`workflows/source-preservation.md`](workflows/source-preservation.md)). An optional **sources hub** `index` note links
+  them all for humans; "orphan" in the graph does not mean "uncited" — use the checklist's *uncited source* check.
+- **Ghost nodes** (`<note-id>`, `<a-key-note-id>`, …) come from placeholder wikilinks in `meta/templates/`. They exist
+  only in the template; in the Graph filters turn **"Existing files only"** on to hide unresolved links (or exclude
+  `meta/templates/` in *Files & Links → Excluded files*, if your setup still needs the Templates plugin to read it).
+- **`.base` dashboards** appear as nodes; turn off **Attachments** in the Graph filters.
+- Typed `related:` links are invisible to the graph; the body "See also" mirror is what draws the edges.
+
 ## Dashboards: prefer Bases (no code)
 Use the **Bases** core plugin for dashboards over your notes' properties. It stores everything in your local
 Markdown and a diff-friendly `.base` file, and runs **no arbitrary code**. Useful views:

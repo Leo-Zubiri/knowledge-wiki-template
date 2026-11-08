@@ -26,7 +26,7 @@ Keep these separate — they answer different questions:
 | `updated` | all | **yes** | date of the last *substantive content* change (not trivial edits). |
 | `status` | claim-bearing + `decision` | **yes** (N/A to `source`/`index`) | review state, per the type's ladder. Agents set `unreviewed`/`proposed` only. |
 | `domain` | `notes/`, `sources/` | **yes** | e.g. `example`. Enables multi-domain use and filtering. |
-| `source` | `sources/` | **yes** | the original's provenance: `url`, `title`, `retrieved`, `version` (+ `hash` if useful). |
+| `source` | `sources/` | **yes** | the original's provenance: one `url` (optional `urls:` list), `title`, `retrieved`, `version`, **`capture`** (`verbatim`/`excerpt`/`paraphrased`; recommended) (+ `retrieved_via`, `hash` if useful). |
 | `sources` | synthesized `notes/` | **required for `verified`** | list of provenance entries (see rules below). |
 | `summary` | `notes/` | **expected** | 1–2 line TL;DR for progressive disclosure — agents read it *before* the body, so it drives retrieval. Strongly recommended on every note. |
 | `aliases` | `notes/` | optional | alternative names / synonyms for the note's topic. **Improves lexical recall** (finding a concept by a different term) and is Obsidian-native. e.g. `aliases: [signal, event emitter]`. |
@@ -36,6 +36,11 @@ Keep these separate — they answer different questions:
 | `superseded-by` | deprecated/superseded notes | type-scoped | `[[successor-id]]` — set **only when a specific replacement exists** (see lifecycle). |
 
 **Notes on fields:**
+- **Quote free-text strings in YAML** (`summary`, `title`, `url`, `claim`). An unquoted value containing `: ` (colon +
+  space) or starting with a special character is invalid YAML and silently breaks metadata tools; the templates ship
+  quoted placeholders for that reason.
+- **`capture`** says how faithfully a source body reproduces the original. A `paraphrased` source (e.g. produced by a
+  summarizing fetch tool) is second-hand evidence and should be re-fetched before dependent notes are `verified`.
 - **`created_by_type` is provenance, not trust.** Trust comes from `status` + `sources`/evidence + human review —
   never from who authored a note. Templates ship **no default** for it (no misleading attribution): an agent adds
   `created_by_type: agent` when it authors; a human may add `human`; otherwise omit it (Git records identity/history).
@@ -77,7 +82,7 @@ id: event-decoupling
 type: concept
 domain: example
 status: verified
-summary: When to prefer event/message decoupling over direct calls, and the coupling trade-off.
+summary: "When to prefer event/message decoupling over direct calls, and the coupling trade-off."  # quoted: safe if it ever contains ': '
 sources:
   - claim: "Events decouple the emitter from the receiver"
     ref: events-doc
@@ -104,6 +109,7 @@ source:
   title: "Events — official documentation"
   retrieved: 2026-11-05
   version: "1.0"
+  capture: excerpt          # verbatim | excerpt | paraphrased
 created: 2026-11-05
 updated: 2026-11-05
 ---

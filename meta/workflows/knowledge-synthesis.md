@@ -23,7 +23,7 @@ will want to retrieve later.
    into `sources/` when you've preserved the original (see [source-preservation.md](source-preservation.md) and
    [../methodology/metadata.md](../methodology/metadata.md)).
 5. **Relate.** Add typed, reason-annotated `related:` links (and body `[[wikilinks]]` in a "See also" for Obsidian/
-   human navigation). **Store only the canonical direction** — e.g. `refines`, `depends-on`, `example-of`,
+   human navigation). **Mirror every `related:` target in the body "See also"** (the graph is built from the body). **Store only the canonical direction** — e.g. `refines`, `depends-on`, `example-of`,
    `contradicts`; the inverse is derived at retrieval, never hand-written (see
    [../methodology/relationships.md](../methodology/relationships.md)). If this conflicts with an existing note, add a
    `contradicts` link and flag it — **do not silently overwrite**.

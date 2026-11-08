@@ -3,7 +3,7 @@ id: <slug>
 type: reference
 domain: <domain>
 status: proposed
-summary: <one-line description of what this reference covers>
+summary: "<one-line description of what this reference covers>"
 # aliases: [synonym, alt-term]           # optional — improves lexical recall
 applies-to:
   min: "<minimum version, if relevant>"
@@ -32,4 +32,4 @@ updated: <YYYY-MM-DD>
 <Details…>
 
 ## See also
-- [[<related-note-id>]] — <reason>
+- `[[<related-note-id>]]` — <reason>

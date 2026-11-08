@@ -3,7 +3,7 @@ id: <slug>
 type: anti-pattern
 domain: <domain>
 status: proposed
-summary: <one-line description of the tempting-but-wrong approach and why it fails>
+summary: "<one-line description of the tempting-but-wrong approach and why it fails>"
 # aliases: [synonym, alt-term]           # optional — improves lexical recall
 sources:
   - claim: "<evidence that this is harmful>"
@@ -29,4 +29,4 @@ updated: <YYYY-MM-DD>
 <Point to the correct pattern/concept via a link.>
 
 ## See also
-- [[<related-note-id>]] — <reason>
+- `[[<related-note-id>]]` — <reason>

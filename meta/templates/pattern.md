@@ -3,7 +3,7 @@ id: <slug>
 type: pattern
 domain: <domain>
 status: proposed
-summary: <one-line statement of the problem this pattern solves>
+summary: "<one-line statement of the problem this pattern solves>"
 # aliases: [synonym, alt-term]           # optional — improves lexical recall
 sources:
   - claim: "<claim / where this pattern is described>"
@@ -30,4 +30,4 @@ updated: <YYYY-MM-DD>
 <When to use it, when not; costs.>
 
 ## See also
-- [[<related-note-id>]] — <reason>
+- `[[<related-note-id>]]` — <reason>

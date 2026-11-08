@@ -3,7 +3,7 @@ id: <slug>
 type: decision
 domain: <domain>
 status: proposed          # decision ladder: proposed → accepted → superseded (or → rejected)
-summary: <one-line statement of the decision made>
+summary: "<one-line statement of the decision made>"
 sources:
   - claim: "<evidence informing the decision>"
     # provide EXACTLY ONE of url (external) or ref (local source-note id):
@@ -29,4 +29,4 @@ updated: <YYYY-MM-DD>
 <Results, trade-offs, follow-ups. If later replaced, set `status: superseded` and add a `superseded-by` link.>
 
 ## See also
-- [[<related-note-id>]] — <reason>
+- `[[<related-note-id>]]` — <reason>
