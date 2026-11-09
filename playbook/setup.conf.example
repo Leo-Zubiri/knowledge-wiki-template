@@ -1,0 +1,15 @@
+# playbook/setup.conf — optional; copy to setup.conf in your domain knowledge repo and adjust.
+# Sourced by setup.sh. Defaults when absent: KB_NAME = folder name of the repo, KB_ENV_VAR = KNOWLEDGE_PATH,
+# SKILLS = every folder in playbook/skills/ that has a SKILL.md, PROFILE_TEMPLATE = the generic consumer profile.
+
+# Name consumers use for the sibling-folder default (../<KB_NAME>)
+KB_NAME="laravel-knowledge"
+
+# Environment variable consumers set in .env to point at this repo
+KB_ENV_VAR="LARAVEL_KNOWLEDGE_PATH"
+
+# Which skills get pointer files in consumer projects (keep ≤ 7 — see playbook/README.md)
+SKILLS=(consult-knowledge write-back-knowledge scope-project plan-phase review-acceptance)
+
+# Profile template handed to consumers (a domain repo usually ships its own with domain fields)
+PROFILE_TEMPLATE="$PB/templates/consumer/project-profile.md"

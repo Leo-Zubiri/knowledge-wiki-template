@@ -45,5 +45,7 @@ Everything else is **optional layering you add when a need appears**: tags, type
    its destination folder to `inbox/`. (Adjust fields to your clipper version — see [`meta/obsidian.md`](meta/obsidian.md).)
 
 ## Then
+- **(Optional) Consumer projects:** `bash playbook/setup.sh project <dir>` writes the committed contract into a project
+  that should use this base (see [`playbook/README.md`](playbook/README.md)); re-running is harmless.
 Feed it ([intake](meta/workflows/intake.md)) → review & verify in Git ([git-governance](meta/workflows/git-governance.md))
 → retrieve ([retrieval](meta/workflows/retrieval.md)). End-to-end overview: [`QUICKSTART.md`](QUICKSTART.md).

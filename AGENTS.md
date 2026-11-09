@@ -66,6 +66,8 @@ Details for each path in [`meta/workflows/`](meta/workflows/).
 **Always search before creating.** If a note already covers the topic, **update it** — do not create a duplicate.
 
 ## Using this repo from another project (optional)
+If this repo ships `playbook/`, read `playbook/PLAYBOOK.md` whenever you act **on** a consumer project (its `AGENTS.md`
+points here); bootstrap a consumer once with `playbook/setup.sh project <dir>`.
 Consuming this knowledge base from a **separate project repo** (read-only consult + stage reusable finds back) →
 [`meta/workflows/cross-repo-consumption.md`](meta/workflows/cross-repo-consumption.md).
 

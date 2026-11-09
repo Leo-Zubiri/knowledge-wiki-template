@@ -24,6 +24,10 @@ portable floor here.
 
 ## 1. Reachability & read-only consumption
 
+> **Shortcut (template ≥ 1.1.0):** if the knowledge repo ships `playbook/`, run `bash <knowledge-repo>/playbook/setup.sh
+> project <project-dir>` once and commit the result — it writes the pointer block below as `AGENTS.md`, the Claude/Gemini
+> adapters, `.env.example`, `docs/project-profile.md` and the plan folder, with no absolute paths. Teammates just clone.
+
 **Make the knowledge repo reachable** from the project without copying it: point an *additional working directory* at an
 independent checkout (in Claude Code, `additionalDirectories` in the project's `.claude/settings.json`, or `--add-dir`;
 other agents have equivalents). This references an outside checkout — it is not a copy in the project.
@@ -98,6 +102,7 @@ later a knowledge-repo PR (`proposed` notes + preserved sources). The next proje
 > (periodic, or part of PR hygiene) so the backlog stays visible and small.
 
 ## 5. Copyable block — drop into the consuming project
+(`playbook/setup.sh project` writes an equivalent pointer automatically when the repo ships `playbook/`.)
 Paste this into the **consuming project's own** `AGENTS.md`/`CLAUDE.md` (the file the agent auto-loads), and fill in the
 placeholders. Pair it with the access config in the setup note below.
 

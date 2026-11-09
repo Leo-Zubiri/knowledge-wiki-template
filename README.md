@@ -11,6 +11,9 @@ the structure, conventions, workflows, and agent instructions; each domain repo 
 > way, what using it feels like). This README is the terse architecture intro; [`QUICKSTART.md`](QUICKSTART.md) gets you
 > set up; [`AGENTS.md`](AGENTS.md) is the agent entry point.
 
+> **Template version:** 1.1.0 — adds the optional procedural layer [`playbook/`](playbook/README.md) (act on consumer
+> projects with a committed, agent-agnostic bootstrap). Derived repos copy it manually and note the version they took.
+
 > **Name:** the project is **"Knowledge Repository Template"**; its GitHub repository is `knowledge-wiki-template` (so the
 > clone URL in [`QUICKSTART.md`](QUICKSTART.md) uses that name). Same project, two labels.
 
@@ -117,6 +120,14 @@ dashboards, and search for **humans** — agents never need it. See [`meta/obsid
 The Obsidian Local REST API plugin can expose read/search tools over MCP — a convenience, not a dependency (it offers
 no semantic search and is unavailable when Obsidian is closed). See [`meta/mcp-setup.md`](meta/mcp-setup.md).
 
+## 10b. Acting on consumer projects (optional procedural layer)
+A domain repo may ship [`playbook/`](playbook/README.md): a capped set of procedures (≤ 7 thin skills that point to
+notes and workflows), portable role specs, checklists and templates, plus `playbook/setup.sh project <dir>` which
+writes a **committed, agent-agnostic contract** into a consumer project (pointer `AGENTS.md`, adapters for Claude
+Code / Gemini CLI, `docs/project-profile.md`, dated plan folders, optional pointer skills). Teammates need no
+per-machine install: they clone the project and the knowledge base. Non-load-bearing: delete the folder and the
+repo works as before.
+
 ## 11. Instantiate the template for a new domain
 **New here? Follow [`QUICKSTART.md`](QUICKSTART.md)** for the end-to-end setup (domain → Obsidian → MCP → feed → review).
 The minimum is: clone into `<domain>-knowledge`, pick a `domain:` value, preserve one source, write one cited note —
@@ -146,6 +157,7 @@ See [`meta/workflows/git-governance.md`](meta/workflows/git-governance.md).
 ├── sources/             ← preserved originals + provenance (conventionally immutable)
 ├── notes/               ← the wiki: synthesized concept/pattern/decision/reference notes
 ├── examples/            ← a tiny worked source + note pair (demo only; delete when done)
+├── playbook/            ← optional procedural layer: playbook, roles, thin skills, checklists, consumer bootstrap (setup.sh)
 └── meta/                ← everything about the repo (methodology, workflows, templates, interoperability, integrations)
 ```
 An optional PARA task layer (`projects/`, `areas/`) is described in
