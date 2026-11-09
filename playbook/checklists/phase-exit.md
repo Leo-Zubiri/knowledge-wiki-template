@@ -10,4 +10,5 @@ Domain repos append their own items.
 - [ ] Generic findings written back to the knowledge base (`proposed`) or listed as `knowledge_gaps` in the profile.
 - [ ] Human gates explicitly accepted by the owner.
 - [ ] Throwaway code from the phase archived or deleted as the plan said.
+- [ ] Cross-cutting runtime concerns (observability, error/crash reporting) addressed for this phase, or explicitly deferred.
 - [ ] *(domain repo adds here)*

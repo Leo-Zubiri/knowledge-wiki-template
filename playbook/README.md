@@ -53,6 +53,13 @@ exception for direct commits on local `main`.
 | Gemini CLI | via `.gemini/settings.json` | no — follows the playbook's prose |
 | Cursor / Copilot | conditional (see matrix) | no — follows the playbook's prose |
 
+## Cross-cutting concerns MOC (recommended for broad domains)
+A domain repo whose scope is wide (e.g. game development spanning engine, design, delivery and agent-ops)
+benefits from an `index`/MOC note that lists the concerns **every** project in the domain must address at
+runtime — error/crash reporting, observability, data integrity, accessibility, i18n — each a one-line pointer
+to its note. The `phase-exit` checklist references it so `plan-phase` and `review-acceptance` surface it. This
+is the methodology's “structure via MOCs, not deep folders” answer to a growing `notes/`.
+
 ## Keeping derived repos in sync
 There is no automatic sync between this template and domain repos built from it. A domain repo copies
 `playbook/` once, keeps the generic files as they are, adds its own skills/checklists/profile fields, and records

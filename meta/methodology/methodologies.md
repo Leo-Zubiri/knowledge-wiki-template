@@ -46,7 +46,7 @@ On atomicity, the primary source is explicitly **anti-dogmatic**: it calls "one 
 explanation"* and defines atomicity as *"separate concerns from one another"* — "a guiding compass rather than a
 rigid law" (<https://zettelkasten.de/atomicity/>). So:
 
-- **Adopt (as a universal rule):** reason-annotated, **typed links**; and `index`/MOC notes as cheap entry points.
+- **Adopt (as a universal rule):** reason-annotated, **typed links**; and `index`/MOC notes as cheap entry points. A domain may span several facets (sub-domains); keep `notes/` flat and lean on per-facet and cross-cutting MOCs rather than deep folders.
 - **Adapt:** **atomicity is a per-type attribute, not a global rule** — `concept`/`pattern`/`decision` notes lean
   atomic; `reference`/`guide` pages stay whole (separate concerns *within* the page via sections). Use
   **human-readable slug IDs** (not timestamps/Luhmann numbers): better for humans, Git diffs, and path-based
