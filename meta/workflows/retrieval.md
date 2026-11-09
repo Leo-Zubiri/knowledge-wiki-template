@@ -36,6 +36,12 @@ Any agent can do this with: **recursive text search** (`ripgrep` preferred; `gre
 - Two full passes with different terms find nothing relevant → **report "not enough evidence"**, don't keep loading files.
 - Never read the whole vault "to be sure."
 
+## Keeping a good answer (optional, only when asked)
+If a human asks to keep a synthesized answer, write it as a **new or updated note via
+[knowledge-synthesis](knowledge-synthesis.md)**, not as a summary of other notes. Its `sources:` must point at the
+**original** `sources/` entries (or URLs) the answer rests on — a note that cites only other notes has no provenance of
+its own. Set `status: proposed` and leave verification to a human. Do not file answers automatically.
+
 ## Handling specific cases
 - **Exact keyword** (API names, error strings) → `rg` directly; its strongest case.
 - **Conceptual / different terminology** → expand with synonyms; lean on `summary`, **`aliases`** (frontmatter), and

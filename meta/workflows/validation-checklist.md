@@ -49,6 +49,16 @@ as appropriate. **Re-evaluate the evidence when there is reason to** (a reported
 every transient failure, and never automatically. Prefer a local `ref` into `sources/` for claims whose external
 originals are volatile.
 
+## Before making a repo public (optional)
+A domain repo that will be published should not leak secrets or machine-local state. Three plain checks, **no tooling
+added**; review every hit by hand (a note *about* API keys will match, a real key must not):
+```sh
+rg -n -i 'api[_-]?key|secret|password|BEGIN (RSA|OPENSSH|EC) PRIVATE KEY' --glob '!.git' .   # secrets
+rg -n '/home/|/Users/' --glob '!.git' .                                                    # machine-local paths
+git ls-files .obsidian .mcp.json .env     # expect only .obsidian/core-plugins.json and templates.json
+```
+Ideas for these checks came from comparing with another LLM-wiki setup guide; they are a checklist, not a gate.
+
 ## Copy-paste check recipe
 A documented snippet — **not shipped tooling** (see [AGENTS.md](../../AGENTS.md) → "When the filesystem is not enough").
 It exists because a measured failure justified it: in one instance 18 notes carried invalid YAML (unquoted `summary` with

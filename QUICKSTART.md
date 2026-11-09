@@ -33,7 +33,8 @@ For guided help (Obsidian, MCP, intake, retrieval), see the provider-neutral spe
 Add material to [`inbox/`](inbox/) (optionally via [`meta/templates/capture.md`](meta/templates/capture.md)), then run
 the intake loop in [`meta/workflows/intake.md`](meta/workflows/intake.md): triage → preserve originals to
 [`sources/`](sources/) → synthesize own-words notes in [`notes/`](notes/) with citations and links → `status: proposed`.
-Or ask an agent: *"ingest this URL"*, *"process my inbox"*.
+Or ask an agent: *"ingest this URL"*, *"process my inbox"*. Not sure what a finished result looks like? Open the
+[`examples/`](examples/) pair; [`SETUP.md`](SETUP.md) lists the "done when" criteria.
 
 ## 6. Review & publish (quality gate)
 A **human** reviews the Git diff and promotes `proposed → verified` (or ADR `accepted`) using the

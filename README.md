@@ -119,11 +119,10 @@ no semantic search and is unavailable when Obsidian is closed). See [`meta/mcp-s
 
 ## 11. Instantiate the template for a new domain
 **New here? Follow [`QUICKSTART.md`](QUICKSTART.md)** for the end-to-end setup (domain → Obsidian → MCP → feed → review).
-In short:
-1. Clone/copy into `<domain>-knowledge`. 2. Pick your `domain:` value. 3. (Optional) open in Obsidian; (optional) set
-up MCP. 4. Add material to [`inbox/`](inbox/) and preserve originals into [`sources/`](sources/). 5. Ingest via the
-[workflows](meta/workflows/). 6. Extend metadata/templates **additively**. 7. Maintain & version — update notes rather
-than duplicating; Git keeps the history.
+The minimum is: clone into `<domain>-knowledge`, pick a `domain:` value, preserve one source, write one cited note —
+[`SETUP.md`](SETUP.md) says when that counts as "done" and what you can ignore at first, and
+[`examples/`](examples/) shows a tiny source + note pair. Extend metadata/templates **additively**, and update notes
+rather than duplicating; Git keeps the history.
 
 ## 12. The knowledge lifecycle
 `capture → ingest → classify → synthesize → relate → validate → publish → retrieve → maintain`, expressed as auditable
@@ -146,6 +145,7 @@ See [`meta/workflows/git-governance.md`](meta/workflows/git-governance.md).
 ├── inbox/               ← quick capture (unprocessed, never cited)
 ├── sources/             ← preserved originals + provenance (conventionally immutable)
 ├── notes/               ← the wiki: synthesized concept/pattern/decision/reference notes
+├── examples/            ← a tiny worked source + note pair (demo only; delete when done)
 └── meta/                ← everything about the repo (methodology, workflows, templates, interoperability, integrations)
 ```
 An optional PARA task layer (`projects/`, `areas/`) is described in
