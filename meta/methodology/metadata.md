@@ -30,6 +30,7 @@ Keep these separate — they answer different questions:
 | `sources` | synthesized `notes/` | **required for `verified`** | list of provenance entries (see rules below). |
 | `summary` | `notes/` | **expected** | 1–2 line TL;DR for progressive disclosure — agents read it *before* the body, so it drives retrieval. Strongly recommended on every note. |
 | `aliases` | `notes/` | optional | alternative names / synonyms for the note's topic. **Improves lexical recall** (finding a concept by a different term) and is Obsidian-native. e.g. `aliases: [signal, event emitter]`. |
+| `tags` | `notes/` | optional | controlled facet tags from the vocabulary in [`tags.md`](tags.md) (≤4, inline list, e.g. `tags: [dept/audio]`); a secondary search/graph aid, never a substitute for `type`/`domain`/`status` or typed links. Not on `sources/`. |
 | `related` | optional | optional | typed, reason-annotated links — see [`relationships.md`](relationships.md). |
 | `created_by_type` | all | optional | `human` or `agent` — **actor-provenance only, NOT a trust signal.** No default; never fabricate. |
 | `applies-to` | `reference`/`concept` | type-scoped | version applicability (e.g. `min`/`tested`) — only where relevant. |

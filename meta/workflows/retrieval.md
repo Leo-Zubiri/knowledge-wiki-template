@@ -14,7 +14,7 @@ Any agent can do this with: **recursive text search** (`ripgrep` preferred; `gre
 ## The progressive protocol
 1. **Understand the question** — identify domain(s), key terms, and intent (point fact / comparison / survey).
 2. **Discover candidates** by metadata + filenames, not by reading bodies:
-   `rg -l "^domain: <domain>" notes/` · match filenames · check `index`/MOC notes.
+   `rg -l "^domain: <domain>" notes/` · `rg -l "^tags:.*<facet>/<value>" notes/` (if the repo uses [tags](../methodology/tags.md); a search aid, not evidence) · match filenames · check `index`/MOC notes.
 3. **Filter** by dimension (intersect file lists):
    ```sh
    comm -12 <(rg -l '^status: verified' notes/|sort) <(rg -l -i '<topic>' notes/|sort)

@@ -23,7 +23,8 @@ accelerator.
 Run this whenever the inbox grows, or on a single new item:
 1. **Triage `inbox/`** — for each item decide: `discard` · keep as `preserve` (evidence) · `synthesize` (make/update a
    note) · leave as `todo`. (A capture may stay in `inbox/` forever.)
-2. **Classify** — assign `type` (see [note-types.md](../methodology/note-types.md)) and `domain`.
+2. **Classify** — assign `type` (see [note-types.md](../methodology/note-types.md)) and `domain`; optionally add up to 4
+   `tags` **from the controlled vocabulary** ([tags.md](../methodology/tags.md)) — propose a new tag in the same diff, never invent one silently.
 3. **Search first** — `rg -l -i "<topic>" notes/` (and `sources/`). Decide **update vs create** — updating is the default.
 4. **Preserve originals** — anything worth citing goes to `sources/` with provenance; notes cite it via
    `sources: - ref: <id>` (see [source-preservation.md](source-preservation.md), [metadata.md](../methodology/metadata.md)).

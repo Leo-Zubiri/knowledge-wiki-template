@@ -23,6 +23,8 @@ Use this for the **knowledge-synthesis** path (see [`knowledge-synthesis.md`](kn
 - [ ] **No duplicate** — you searched first and either updated an existing note or confirmed none fit.
 - [ ] **Every `related:` target also appears in the body "See also"** (the Obsidian graph is built from the body;
       otherwise the typed link exists only for agents).
+- [ ] **Tags (if used)**: every tag is in the vocabulary ([tags.md](../methodology/tags.md)), at most 4 per note, none on
+      sources, and no stray `#word` in prose.
 - [ ] **Sources**: one `url` per source (or an explicit `urls:` list); `capture` is set (`verbatim`/`excerpt`/`paraphrased`);
       every source is cited by at least one note (or deliberately kept uncited).
 
@@ -54,13 +56,14 @@ It exists because a measured failure justified it: in one instance 18 notes carr
 (needs `python3` with `PyYAML`; equivalent `rg`/`yq` checks work too). It prints one line per problem and the count.
 It checks: YAML parses, `id` = filename, status valid for the type (none for `source`/`index`), each `sources:` entry has exactly
 one of `ref`/`url`, each `ref` resolves, body wikilinks resolve, every `related:` target is in the body, one URL per source,
-`capture` set, and no source left uncited.
+`capture` set, tags (if any) in the vocabulary/≤4/not on sources/no stray `#word`, and no source left uncited.
 
 ```bash
 python3 - <<'PY'
 import re, glob, os, yaml
 CLAIM = {"unreviewed","proposed","reviewed","verified","deprecated"}
 DECISION = {"proposed","accepted","superseded","rejected"}
+MAX_TAGS = 4
 def load(p):
     t = open(p).read()
     if not t.startswith("---"): return None, t
@@ -69,6 +72,9 @@ def load(p):
 notes = {os.path.basename(f)[:-3]: load(f) for f in glob.glob("notes/*.md")}
 srcs  = {os.path.basename(f)[:-3]: load(f) for f in glob.glob("sources/*.md")}
 notes = {k: v for k, v in notes.items() if v[0]}; srcs = {k: v for k, v in srcs.items() if v[0]}
+vocab = set()
+if os.path.exists("meta/methodology/tags.md"):
+    vocab = set(re.findall(r"^\|\s*`([a-z0-9][a-z0-9/-]*)`\s*\|", open("meta/methodology/tags.md").read(), re.M))
 bad, cited = [], set()
 for kind, items in (("note", notes), ("source", srcs)):
     for i, (d, body) in items.items():
@@ -88,6 +94,13 @@ for kind, items in (("note", notes), ("source", srcs)):
             for v in r.values():
                 m = re.search(r"\[\[([^\]]+)\]\]", str(v))
                 if m and m.group(1) not in links: bad.append(f"{i}: related {m.group(1)} not in body See also")
+        tags = d.get("tags") or []
+        if tags and kind == "source": bad.append(f"{i}: sources must not carry tags")
+        if tags:
+            if not isinstance(tags, list) or len(tags) > MAX_TAGS: bad.append(f"{i}: tags must be a list of at most {MAX_TAGS}")
+            bad += [f"{i}: tag {t} not in meta/methodology/tags.md" for t in (tags if isinstance(tags, list) else []) if t not in vocab]
+        prose = re.sub(r"```.*?```|`[^`]*`|^#.*$", "", body, flags=re.S | re.M)
+        bad += [f"{i}: stray #{w} in prose becomes a tag" for w in re.findall(r"(?<![\w&/#\[(])#([A-Za-z][\w/-]*)", prose)]
         if kind == "source":
             so = d.get("source") or {}
             if " ; " in str(so.get("url", "")): bad.append(f"{i}: several URLs in `url` (use `urls:`)")

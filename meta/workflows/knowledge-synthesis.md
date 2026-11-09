@@ -27,7 +27,9 @@ will want to retrieve later.
    `contradicts`; the inverse is derived at retrieval, never hand-written (see
    [../methodology/relationships.md](../methodology/relationships.md)). If this conflicts with an existing note, add a
    `contradicts` link and flag it — **do not silently overwrite**.
-6. **Set status.** Frontmatter `status: proposed`. (Agents may set only the entry states `unreviewed`/`proposed`.)
+6. **Tag (optional).** Add up to 4 `tags` from the controlled vocabulary in [../methodology/tags.md](../methodology/tags.md);
+   a new tag is proposed in the same diff (human approves). Never on `sources/`.
+   **Set status.** Frontmatter `status: proposed`. (Agents may set only the entry states `unreviewed`/`proposed`.)
 7. **Validate** before handing off — run the **[validation checklist](validation-checklist.md)** (the single source of
    truth for the checks; not duplicated here).
 8. **Hand off for verification.** Commit on a branch and open it for human review

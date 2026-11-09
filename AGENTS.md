@@ -29,6 +29,8 @@ Each note carries YAML frontmatter with three **independent** dimensions — see
   deprecated`; `decision` uses `proposed → accepted → superseded`/`rejected`; `source` and `index` carry **no status**
   (see [lifecycle.md](meta/methodology/lifecycle.md)).
 - **location** (where it lives): the folder (`inbox/ | sources/ | notes/`) — not a field.
+- Optional **`tags`**: a controlled facet vocabulary (secondary search/graph aid on `notes/` only; never invent a tag —
+  see [`meta/methodology/tags.md`](meta/methodology/tags.md)).
 
 ## How to RETRIEVE (filesystem-first — no Obsidian, no MCP)
 Full procedure: [`meta/workflows/retrieval.md`](meta/workflows/retrieval.md). In short:

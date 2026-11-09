@@ -73,6 +73,9 @@ presets — the Color Groups above are the always-on cue):
 - **Ghost nodes** (`<note-id>`, `<a-key-note-id>`, …) come from placeholder wikilinks in `meta/templates/`. They exist
   only in the template; in the Graph filters turn **"Existing files only"** on to hide unresolved links (or exclude
   `meta/templates/` in *Files & Links → Excluded files*, if your setup still needs the Templates plugin to read it).
+- **Tags (if you use them):** colour notes by tag with Groups (`tag:#dept/audio`), but keep the graph's **Tags** toggle off —
+  turned on, each tag becomes a hub node connecting every note that shares it (co-occurrence, not a relationship). See
+  [`methodology/tags.md`](methodology/tags.md).
 - **`.base` dashboards** appear as nodes; turn off **Attachments** in the Graph filters.
 - Typed `related:` links are invisible to the graph; the body "See also" mirror is what draws the edges.
 
